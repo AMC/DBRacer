@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>DBRacer</title>
+    <link href="racer.css" rel="stylesheet">
+  </head>
+  <body onload="init()">
+    <div id="titleText">
+    	<label id="titleLabel">DBRacer</label>
+    </div>
+    <div id="startText">
+    	<label id="startLabel">5</label>
+    </div>
+    <div id="laps">
+    	<label id="myLap">0</label>
+    </div>
+    <!-- The canvas for the panning background -->
+    <canvas id="background" width="1000" height="600">
+      Your browser does not support canvas.
+    </canvas>
+    <canvas id="carCanvas" width="1000" height="600">
+      Your browser does not support canvas.
+    </canvas>
+    <script src="race.js"></script>
+  </body>
+</html>
