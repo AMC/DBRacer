@@ -5,25 +5,56 @@
     <link href="racer.css" rel="stylesheet">
   </head>
   <body onload="init()">
-    <div id="titleText">
-    	<label id="titleLabel">DBRacer</label>
+  	<div id="titleText">
+   		<label id="titleLabel">DBRacer</label>
     </div>
-    <div id="startText">
-    	<label id="startLabel">5</label>
+  	<div id="startText">
+		<label id="startLabel">5</label>
     </div>
-    <div id="laps">
+  	<div id="laps">
     	<label id="myLap">0</label>
     </div>
     <!-- The canvas for the panning background -->
-    <canvas id="background" width="1000" height="600">
+  	<canvas id="background" width="1000" height="600">
       Your browser does not support canvas.
     </canvas>
-    <canvas id="carCanvas" width="1000" height="600">
+  	<canvas id="carCanvas" width="1000" height="600">
       Your browser does not support canvas.
     </canvas>
-    <canvas id="opcarCanvas" width="1000" height="600">
+  	<canvas id="opcarCanvas" width="1000" height="600">
       Your browser does not support canvas.
     </canvas>
-    <script src="race.js"></script>
-  </body>
+  	<script src="race.js"></script>
+    
+  	<div id="selectScreen">
+    	<label>Welcome to DBRacer!</label>
+        <br>
+		<label>Please type your name and select your car's color</label>
+        <br><br>
+        <form>
+            <input name="name" type="text" value="Player Name" size="50" maxlength="30"><br>
+          <br>
+          <p>
+              <label>
+                <input type="radio" name="colorGroup" value="red" id="colorGroup_0" checked>
+            Red</label>
+              <br>
+              <label>
+                <input type="radio" name="colorGroup" value="blue" id="colorGroup_1">
+                Blue</label>
+              <br>
+              <label>
+                <input type="radio" name="colorGroup" value="yellow" id="colorGroup_2">
+                Yellow</label>
+              <br>
+            <label>
+                <input type="radio" name="colorGroup" value="green" id="colorGroup_3">
+              Green</label>
+              <br>
+          </p>
+        </form>
+        <br>
+        <input name="play" type="button" value="Play Game!" onClick="waitForOther()">
+    </div>
+</body>
 </html>

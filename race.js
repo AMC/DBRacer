@@ -28,6 +28,8 @@ var gridx = 0;
 var gridy = 0;
 var prevx = 0;
 var prevy = 0;
+var lapMarker = 0;
+var laps = 0;
 
 var trackString = "0,0,0,5,5,5,5,5,5,5,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,5,0,0,0,0,0,0,0,0,19,20,21,1,1,1,1,1,11,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,0,19,20,21,22,23,24,0,0,0,25,26,15,13,13,13,13,14,9,11,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,0,25,26,27,28,29,30,5,0,5,31,15,17,0,0,0,0,16,14,9,11,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,0,31,15,13,14,35,36,5,5,10,8,4,5,0,0,0,0,0,16,14,9,11,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,0,2,4,5,2,3,4,5,5,2,15,17,5,5,5,5,5,5,0,16,14,9,1,1,1,1,11,0,0,0,0,10,1,1,1,1,11,0,0,5,0,2,4,5,2,3,4,5,5,2,4,5,0,0,0,0,0,0,5,0,16,14,28,28,28,28,9,1,1,1,1,8,28,28,28,28,9,11,0,5,0,2,4,5,2,3,4,5,5,2,4,5,10,1,1,1,22,23,24,5,0,16,13,13,13,13,13,13,13,13,13,13,13,13,13,14,28,9,11,5,0,2,4,5,2,3,4,5,5,37,9,11,2,15,13,13,14,29,30,0,5,5,5,5,5,5,5,5,5,5,5,5,5,0,0,16,14,28,4,5,0,2,4,5,2,3,4,5,0,43,44,9,8,4,0,5,16,14,36,5,19,20,21,1,1,1,1,1,1,1,22,23,24,5,0,0,16,14,4,5,0,2,4,5,2,3,4,5,0,49,50,51,13,17,0,5,0,2,4,5,25,26,27,7,7,7,7,7,7,7,28,29,30,5,0,0,0,2,4,0,5,2,4,5,2,3,4,5,0,0,0,0,0,5,5,5,0,2,4,5,31,32,15,13,13,13,13,13,13,13,14,35,36,5,0,0,0,2,4,0,5,2,4,5,55,56,57,5,0,5,5,5,5,0,0,5,0,2,4,5,2,32,4,5,5,0,0,0,5,5,2,35,4,5,0,0,0,2,4,0,5,2,4,5,2,3,4,5,5,10,1,1,1,11,0,5,0,2,4,5,2,32,4,0,0,0,5,0,0,0,2,35,4,5,0,0,0,2,4,0,5,2,4,5,2,3,4,5,5,2,15,13,14,9,11,5,10,8,4,5,37,38,9,22,23,24,5,19,20,21,8,41,42,5,0,0,0,2,9,11,10,8,4,5,2,3,4,5,5,2,4,5,16,14,9,1,8,28,4,5,43,44,45,28,29,30,5,25,26,27,46,47,48,5,0,0,0,37,38,9,8,41,42,5,2,3,4,5,5,2,4,0,0,16,14,28,28,28,4,5,49,50,51,14,35,36,5,31,32,15,52,53,54,5,0,0,0,43,44,45,46,47,48,5,2,3,4,5,5,2,4,0,0,0,16,13,13,13,17,5,0,0,0,2,35,4,5,2,35,4,0,0,0,0,5,5,0,49,50,51,52,53,54,5,2,3,4,5,5,2,9,11,0,0,5,5,5,5,5,0,0,0,0,16,14,4,5,2,15,17,0,0,0,0,0,0,5,5,5,5,5,5,5,0,2,3,4,5,5,2,45,9,11,0,0,0,0,0,0,0,0,0,0,0,2,4,5,2,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,3,4,5,5,2,45,45,9,1,1,1,1,1,11,0,0,0,0,0,2,4,5,2,4,0,0,0,0,0,0,0,0,0,10,1,1,1,1,1,8,41,42,5,5,16,13,13,13,13,13,14,45,45,9,1,1,1,1,1,8,4,5,2,9,1,1,1,1,1,1,1,1,1,8,3,3,3,3,3,3,47,48,5,0,0,0,0,0,0,0,16,13,13,13,13,13,13,13,13,13,17,5,16,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,52,53,54,0,0,0,0,0,0,5,5,5,5,5,5,5,5,5,5,5,5,5,0,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,0,0";
 var trackArray = trackString.split(',');
@@ -82,6 +84,18 @@ function getNewPosition()
 	if (keyState[68]) {moveRight();}
 	if (keyState[83]) {moveDown();}
 	getGridPosition();
+	if ((gridx == 8 && gridy == 11) || (gridx == 9 && gridy == 11) || (gridx == 10 && gridy == 11))
+	{
+		lapMarker = 1;
+	}
+	if ((gridx == 36 && gridy == 11) || (gridx == 37 && gridy == 11) || (gridx == 38 && gridy == 11))
+	{
+		if (lapMarker == 1)
+		{
+			lapMarker = 0;
+			laps++;
+		}
+	}
 	checkObstacles();
 	speedXY();
 	myCar.x += myCar.dx;
@@ -91,6 +105,18 @@ function getNewPosition()
 	drawRotatedImage(opCarImage_context,opCar.source,opCar.x,opCar.y,opCar.angle);
 	
 	db.setCar(myCar); //sends car info to other machine
+	if (laps == 3)
+	{
+		//end race, this car won
+		clearInterval(getNewPosition);
+		
+	}
+	else if (opCars.laps == 3)
+	{
+		//end race, other car won
+		clearInterval(getNewPosition);
+		
+	}
 }
 
 function speedXY ()
@@ -164,7 +190,8 @@ function drawRotatedImage(carImage, image, x, y, angle)
     carImage.restore();
 }
 
-function init()
+//this function waits until the other racer is ready to go
+function waitForOther()
 {
 	//init car images
 	var carImage1 = new Image();
@@ -176,26 +203,60 @@ function init()
 	var carImage4 = new Image();
 	carImage4.src = "assets/car4.png";
 	
-	//store original car data
-	myCar.x=950;
-	myCar.y=325;
+	
+	var map = db.getMap();
+	trackArray = map.track();
+	grassArray = map.grass();
+	barrierArray = map.barriers();
+	drawBG();
+	
+	
 	myCar.dx=0;
 	myCar.dy=0;
 	myCar.speed=0;
 	myCar.angle=0;
 	myCar.laps=0;
-	myCar.source=carImage1;
 	
+	
+	if (document.getElementById('colorGroup_0').checked) {
+		myCar.source = carImage1;
+	}
+	else if (document.getElementById('colorGroup_1').checked) {
+		myCar.source = carImage2;
+	}
+	else if (document.getElementById('colorGroup_2').checked) {
+		myCar.source = carImage3;
+	}
+	else if (document.getElementById('colorGroup_3').checked) {
+		myCar.source = carImage4;
+	}
+	
+	
+	if (db.getState() == "countdown")
+	{
+		myCar.x=950;
+		myCar.y=325;
+	}
+	else
+	{
+		myCar.x=900;
+		myCar.y=325;
+		while (db.getState() != "countdown") {}
+	}
+	var element = document.getElementById("selectScreen");
+	element.parentNode.removeChild(element);
+	setRace();
+}
+
+function init()
+{
+	//asks for name and car color, waits for other user to be finished
+}
+
+function setRace()
+{
 	//get info from database
 	opCar = db.getCars(); //array of car objects (future)
-	/** NEED TO TELL ANDREW TO HAVE "source" INSTEAD OF "color"**/
-	var map = db.getMap();
-	trackArray = map.track();
-	grassArray = map.grass();
-	barrierArray = map.barriers();
-	
-	//draw initial images
-	drawBG();
 	getNewPosition();
 	
 	//start intro timer
@@ -233,14 +294,6 @@ function getCar()
 	myCar.name;
 	myCar.color;
 	*/
-}
-
-//get track as array
-function getMap()
-{
-	map.track
-	map.grass
-	map.barriers
 }
 
 //each key pressed is stored in keyState array as true

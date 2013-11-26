@@ -44,3 +44,27 @@ canvas
 	font-family:"Arial Black", Gadget, sans-serif;
 }
 
+#selectScreen
+{
+	position:absolute;
+	top:0px;
+	right:0px;
+	left:0px;
+	text-align:center;
+	color:#000;
+	font-size:40px;
+	font-weight:bold;
+	z-index:3;
+	font-family:"Arial Black", Gadget, sans-serif;
+	background-color:#FFF;
+	height:600px;
+}
+
+#selectScreen form
+{
+	color:#000;
+	font-size:24px;
+	font-weight:bold;
+	font-family:"Arial Black", Gadget, sans-serif;
+}
+
