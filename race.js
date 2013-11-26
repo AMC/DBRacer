@@ -210,6 +210,8 @@ function drawRotatedImage(carImage, image, x, y, angle)
 //this function waits until the other racer is ready to go
 function waitForOther()
 {
+	var element = document.getElementById("selectScreen");
+	element.parentNode.removeChild(element);
 	//init car images
 	var carImage1 = new Image();
 	carImage1.src = "assets/car1.png";
@@ -258,8 +260,6 @@ function waitForOther()
 		myCar.y=325;
 		while (db.getState() != "countdown") {}
 	}
-	var element = document.getElementById("selectScreen");
-	element.parentNode.removeChild(element);
 	setRace();
 }
 
