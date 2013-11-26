@@ -42,7 +42,6 @@ var barrierArray = barrierString.split(',');
 {
 	
 }
-*/
 
 function Car()
 {
@@ -54,6 +53,7 @@ function Car()
 	this.angle = 0;
 	this.laps = 0;
 }
+*/
 
 
 function drawBG()
@@ -227,13 +227,11 @@ function waitForOther()
 	barrierArray = map.barriers();
 	drawBG();
 	
-	/*
 	myCar.dx=0;
 	myCar.dy=0;
 	myCar.speed=0;
 	myCar.angle=0;
 	myCar.laps=0;
-	*/
 	
 	if (document.getElementById('colorGroup_0').checked) {
 		myCar.source = carImage1;
