@@ -9,6 +9,8 @@ var c_context=c.getContext("2d");
 
 var myCarImage=document.getElementById("carCanvas");
 var myCarImage_context=myCarImage.getContext("2d");
+var opCarImage=document.getElementById("opcarCanvas");
+var opCarImage_context=opCarImage.getContext("2d");
 
 var myCar = new Object();
 var opCar = new Object();
@@ -19,8 +21,13 @@ var trackWidth = 6;
 var mapWidth = 40;
 var mapHeight = 24;
 var tileSize = 25;
-var maxSpeed = 2.0;
+var maxSpeed = 2.2;
+var maxGrass = 1.2;
 var speedRate = 0.1;
+var gridx = 0;
+var gridy = 0;
+var prevx = 0;
+var prevy = 0;
 
 var trackString = "0,0,0,5,5,5,5,5,5,5,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,5,0,0,0,0,0,0,0,0,19,20,21,1,1,1,1,1,11,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,0,19,20,21,22,23,24,0,0,0,25,26,15,13,13,13,13,14,9,11,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,0,25,26,27,28,29,30,5,0,5,31,15,17,0,0,0,0,16,14,9,11,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,0,31,15,13,14,35,36,5,5,10,8,4,5,0,0,0,0,0,16,14,9,11,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,0,2,4,5,2,3,4,5,5,2,15,17,5,5,5,5,5,5,0,16,14,9,1,1,1,1,11,0,0,0,0,10,1,1,1,1,11,0,0,5,0,2,4,5,2,3,4,5,5,2,4,5,0,0,0,0,0,0,5,0,16,14,28,28,28,28,9,1,1,1,1,8,28,28,28,28,9,11,0,5,0,2,4,5,2,3,4,5,5,2,4,5,10,1,1,1,22,23,24,5,0,16,13,13,13,13,13,13,13,13,13,13,13,13,13,14,28,9,11,5,0,2,4,5,2,3,4,5,5,37,9,11,2,15,13,13,14,29,30,0,5,5,5,5,5,5,5,5,5,5,5,5,5,0,0,16,14,28,4,5,0,2,4,5,2,3,4,5,0,43,44,9,8,4,0,5,16,14,36,5,19,20,21,1,1,1,1,1,1,1,22,23,24,5,0,0,16,14,4,5,0,2,4,5,2,3,4,5,0,49,50,51,13,17,0,5,0,2,4,5,25,26,27,7,7,7,7,7,7,7,28,29,30,5,0,0,0,2,4,0,5,2,4,5,2,3,4,5,0,0,0,0,0,5,5,5,0,2,4,5,31,32,15,13,13,13,13,13,13,13,14,35,36,5,0,0,0,2,4,0,5,2,4,5,55,56,57,5,0,5,5,5,5,0,0,5,0,2,4,5,2,32,4,5,5,0,0,0,5,5,2,35,4,5,0,0,0,2,4,0,5,2,4,5,2,3,4,5,5,10,1,1,1,11,0,5,0,2,4,5,2,32,4,0,0,0,5,0,0,0,2,35,4,5,0,0,0,2,4,0,5,2,4,5,2,3,4,5,5,2,15,13,14,9,11,5,10,8,4,5,37,38,9,22,23,24,5,19,20,21,8,41,42,5,0,0,0,2,9,11,10,8,4,5,2,3,4,5,5,2,4,5,16,14,9,1,8,28,4,5,43,44,45,28,29,30,5,25,26,27,46,47,48,5,0,0,0,37,38,9,8,41,42,5,2,3,4,5,5,2,4,0,0,16,14,28,28,28,4,5,49,50,51,14,35,36,5,31,32,15,52,53,54,5,0,0,0,43,44,45,46,47,48,5,2,3,4,5,5,2,4,0,0,0,16,13,13,13,17,5,0,0,0,2,35,4,5,2,35,4,0,0,0,0,5,5,0,49,50,51,52,53,54,5,2,3,4,5,5,2,9,11,0,0,5,5,5,5,5,0,0,0,0,16,14,4,5,2,15,17,0,0,0,0,0,0,5,5,5,5,5,5,5,0,2,3,4,5,5,2,45,9,11,0,0,0,0,0,0,0,0,0,0,0,2,4,5,2,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,3,4,5,5,2,45,45,9,1,1,1,1,1,11,0,0,0,0,0,2,4,5,2,4,0,0,0,0,0,0,0,0,0,10,1,1,1,1,1,8,41,42,5,5,16,13,13,13,13,13,14,45,45,9,1,1,1,1,1,8,4,5,2,9,1,1,1,1,1,1,1,1,1,8,3,3,3,3,3,3,47,48,5,0,0,0,0,0,0,0,16,13,13,13,13,13,13,13,13,13,17,5,16,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,52,53,54,0,0,0,0,0,0,5,5,5,5,5,5,5,5,5,5,5,5,5,0,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,0,0";
 var trackArray = trackString.split(',');
@@ -68,15 +75,22 @@ function drawCars()
 
 function getNewPosition()
 {
+	opCar = db.getCar();//get other car's info
+	
 	if (keyState[65]) {moveLeft();}
 	if (keyState[87]) {moveUp();}
 	if (keyState[68]) {moveRight();}
 	if (keyState[83]) {moveDown();}
+	getGridPosition();
+	checkObstacles();
 	speedXY();
 	myCar.x += myCar.dx;
 	myCar.y += myCar.dy;
 	//drawCars();
-	drawRotatedImage(myCar.source,myCar.x,myCar.y,myCar.angle);
+	drawRotatedImage(myCarImage_context,myCar.source,myCar.x,myCar.y,myCar.angle);
+	drawRotatedImage(opCarImage_context,opCar.source,opCar.x,opCar.y,opCar.angle);
+	
+	db.setCar(myCar); //sends car info to other machine
 }
 
 function speedXY ()
@@ -85,9 +99,41 @@ function speedXY ()
 	myCar.dy = Math.cos(myCar.angle * TO_RADIANS) * myCar.speed * -1;
 }
 
+function getGridPosition()
+{
+	prevx = gridx;
+	prevy = gridy;
+	gridx = Math.floor((myCar.x+myCar.dx)/tileSize);
+	gridy = Math.floor((myCar.y+myCar.dy)/tileSize);
+}
+
+function checkObstacles()
+{
+	//check if on grass, and reduce speed
+	if (grassArray[gridx+gridy*mapWidth] == 1)
+	{
+		if (myCar.speed >= maxGrass) {myCar.speed = maxGrass;}
+	}
+	//check if hit barrier, and deflect car
+	if (barrierArray[gridx+gridy*mapWidth] == 1)
+	{
+		if (gridx-prevx == 0)
+		{
+			//car hit a barrier vertically
+			myCar.angle = (180+360) - myCar.angle;
+		}
+		else
+		{
+			//car hit a varrier horizontally
+			myCar.angle = 360 - myCar.angle;
+		}
+	}
+}
+
 function moveLeft()
 {
 	myCar.angle -= myCar.speed*1.4;
+	myCar.angle = (myCar.angle+360) % 360;
 }
 
 function moveUp()
@@ -99,6 +145,7 @@ function moveUp()
 function moveRight()
 {
 	myCar.angle += myCar.speed*1.4;
+	myCar.angle = (myCar.angle+360) % 360;
 }
 
 function moveDown()
@@ -107,14 +154,14 @@ function moveDown()
 	else {myCar.speed -= speedRate;}
 }
 
-function drawRotatedImage(image, x, y, angle)
+function drawRotatedImage(carImage, image, x, y, angle)
 {
-    myCarImage_context.save();
-	myCarImage_context.clearRect(0,0,1000,600);
-    myCarImage_context.translate(x, y);
-    myCarImage_context.rotate(angle * TO_RADIANS);
-    myCarImage_context.drawImage(image, -(image.width/2), -(image.height/2));
-    myCarImage_context.restore();
+    carImage.save();
+	carImage.clearRect(0,0,1000,600);
+    carImage.translate(x, y);
+    carImage.rotate(angle * TO_RADIANS);
+    carImage.drawImage(image, -(image.width/2), -(image.height/2));
+    carImage.restore();
 }
 
 function init()
@@ -139,6 +186,14 @@ function init()
 	myCar.laps=0;
 	myCar.source=carImage1;
 	
+	//get info from database
+	opCar = db.getCars(); //array of car objects (future)
+	/** NEED TO TELL ANDREW TO HAVE "source" INSTEAD OF "color"**/
+	var map = db.getMap();
+	trackArray = map.track();
+	grassArray = map.grass();
+	barrierArray = map.barriers();
+	
 	//draw initial images
 	drawBG();
 	getNewPosition();
@@ -157,13 +212,35 @@ function onTimer()
 	else if (start == 0)
 	{
 		document.getElementById("startLabel").innerHTML = "GO!";
-		setInterval(getNewPosition, 10);
+		setInterval(getNewPosition, 20);
 	}
 	else if (start == -2)
 	{
 		document.getElementById("startLabel").innerHTML = "";
 		clearInterval(intro);
 	}
+}
+
+//don't need, unless need to change .color to .source
+function getCar()
+{
+	myCar = db.getCars();
+	/*
+	myCar.x;
+	myCar.y;
+	myCar.angle;
+	myCar.laps;
+	myCar.name;
+	myCar.color;
+	*/
+}
+
+//get track as array
+function getMap()
+{
+	map.track
+	map.grass
+	map.barriers
 }
 
 //each key pressed is stored in keyState array as true
