@@ -231,7 +231,7 @@ function waitForOther()
 		myCar.source = carImage4;
 	}
 	
-	
+	db.setState("ready");
 	if (db.getState() == "countdown")
 	{
 		myCar.x=950;
@@ -255,6 +255,7 @@ function init()
 
 function setRace()
 {
+	db.setState("run");
 	//get info from database
 	opCar = db.getCars(); //array of car objects (future)
 	getNewPosition();
@@ -280,20 +281,6 @@ function onTimer()
 		document.getElementById("startLabel").innerHTML = "";
 		clearInterval(intro);
 	}
-}
-
-//don't need, unless need to change .color to .source
-function getCar()
-{
-	myCar = db.getCars();
-	/*
-	myCar.x;
-	myCar.y;
-	myCar.angle;
-	myCar.laps;
-	myCar.name;
-	myCar.color;
-	*/
 }
 
 //each key pressed is stored in keyState array as true
