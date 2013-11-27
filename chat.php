@@ -44,7 +44,7 @@ $(document).ready(function(){
 	websocket = new WebSocket(wsUri); 
 	
 	websocket.onopen = function(ev) { // connection is open 
-		$('#message_box').append("<div class=\"system_msg\">Connected!</div>"); //notify user
+		$('#message_box').append("<div class=\"system_msg\">Connected!!</div>"); //notify user
 	}
 
 	$('#send-btn').click(function(){ //use clicks message send button	
