@@ -1,0 +1,3 @@
+<?
+
+  'php -q server.php'
