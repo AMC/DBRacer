@@ -1,3 +1,5 @@
 <?
 
-  'php -q server.php'
+  `php -q server.php`
+  
+?>
