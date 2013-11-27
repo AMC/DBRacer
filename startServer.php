@@ -1,6 +1,0 @@
-<?
-
-  `php -q server.php`
-
-  
-?>
