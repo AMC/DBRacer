@@ -12,8 +12,8 @@ var myCarImage_context=myCarImage.getContext("2d");
 var opCarImage=document.getElementById("opcarCanvas");
 var opCarImage_context=opCarImage.getContext("2d");
 
-var myCar = new Object();
-var opCar = new Object();
+var myCar = new CarObject();
+var opCar = new CarObject();
 var start=5;
 var TO_RADIANS = Math.PI/180;
 var intro;
@@ -42,9 +42,10 @@ var barrierArray = barrierString.split(',');
 {
 	
 }
-
-function Car()
+*/
+function CarObject()
 {
+	this.id = Math.floor(Math.random()*99999);
 	this.x = 0;
 	this.y = 0;
 	this.dx = 0;
@@ -53,7 +54,6 @@ function Car()
 	this.angle = 0;
 	this.laps = 0;
 }
-*/
 
 
 function drawBG()
