@@ -1,5 +1,6 @@
 <?php
-$host = $_SERVER['SERVER_NAME']; //host
+print_r($_SERVER);
+$host = "ec2-54-211-53-228.compute-1.amazonaws.com"; //host
 $port = '4444'; //port
 $null = NULL; //null var
 
