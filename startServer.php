@@ -1,6 +1,9 @@
 <?
 
-  $output = `php -q server.php`
-  echo $output;
+  $output = `ls -al`;
+  echo "<pre>$output</pre>";
+
+  `php -q server.php`
+
   
 ?>
