@@ -5,6 +5,7 @@
 
   $clients    = array();
   $clientsIP  = array();
+  $maxClients = 6;
 
   // required for socket_select
   $NULL = NULL;
@@ -52,56 +53,58 @@
       $newSocket = socket_accept($socket);
       $header = socket_read($newSocket, 1024);
 
-      $clients[] = $newSocket;
-      $id = array_search($newSocket, $clients);
-      socket_getpeername($newSocket, $clientsIP[$id]);
+      if (count($clients) < $maxClients) {
+        $clients[] = $newSocket;
+        $id = array_search($newSocket, $clients);
+        socket_getpeername($newSocket, $clientsIP[$id]);
 
-      echo "initiating handshake with $clientsIP[$id]...\n";
-      ws_handshake($header, $newSocket, $host, $port);
+        echo "initiating handshake with $clientsIP[$id]...\n";
+        ws_handshake($header, $newSocket, $host, $port);
       
-      $response = create_frame("CONNECTIONS", array(
-        'message' => "CONNECTED",
-        'id'      => $id,
-      ));
+        $response = create_frame("CONNECTIONS", array(
+          'message' => "CONNECTED",
+          'id'      => $id,
+        ));
 
-      echo "sending welcome message:\n";
-      echo "$response \n";
+        echo "sending welcome message:\n";
+        echo "$response \n";
 
-      send_frame($newSocket, $response);
+        send_frame($newSocket, $response);
 
+        echo "notifying new client of existing connections...\n";
+        // ignores original socket
+        for ($i = 0; $i < count($clients); $i++) {
+          if ($clients[$i] != $newSocket && $clientsIP[$i] != NULL) {
+            $response = create_frame("CONNECTIONS", array(
+              'message' => 'NEW_CONNECTION',
+              'id'      => $i,
+              'ip'      => $clientsIP[$i],
+            ));
+          
+            echo "$response \n";
+            send_frame($newSocket, $response);
+          }
+        }
+      
+        $response = create_frame("CONNECTIONS", array(
+          'message' => "NEW_CONNECTION",
+          'id'      => $id,
+          'ip'      => $clientsIP[$id],
+        ));
+      
+        echo "notifying clients of new connection...\n";
+        echo "$response \n";
+      
+        for ($i = 0; $i < count($clients); $i++) {
+          if ($clients[$i] != $newSocket && $clientsIP[$i] != NULL)
+            send_frame($clients[$i], $response);
+        }
+      }
+      
       echo "removing new client from the \$socketsToRead array...\n";
       $index = array_search($socket, $socketsToRead);
       unset($socketsToRead[$index]);
       
-      echo "notifying new client of existing connections...\n";
-      // ignores original socket
-      for ($i = 0; $i < count($clients); $i++) {
-        if ($clients[$i] != $newSocket && $clientsIP[$i] != NULL) {
-          $response = create_frame("CONNECTIONS", array(
-            'message' => 'NEW_CONNECTION',
-            'id'      => $i,
-            'ip'      => $clientsIP[$i],
-          ));
-          
-          echo "$response \n";
-          send_frame($newSocket, $response);
-        }
-      }
-      
-      $response = create_frame("CONNECTIONS", array(
-        'message' => "NEW_CONNECTION",
-        'id'      => $id,
-        'ip'      => $clientsIP[$id],
-      ));
-      
-      echo "notifying clients of new connection...\n";
-      echo "$response \n";
-      
-      for ($i = 0; $i < count($clients); $i++) {
-        if ($clients[$i] != $newSocket && $clientsIP[$i] != NULL)
-          send_frame($clients[$i], $response);
-      }
-
       echo "\n";
 
     } // end check for new client connection
