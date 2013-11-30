@@ -6,7 +6,7 @@ function connectionsHandler(data) {
   console.log("connection handler for: " + id);
   console.log(data);
 
-  $(id).removeClass("btnStatus btnStatusConnected btnStatusReady btnStatusDropped");
+  $(id).removeClass("btnStatusConnected btnStatusReady btnStatusDropped");
   
   if (data.message == "CONNECTED" || data.message == "NEW_CONNECTION") {
     $(id).addClass("btnStatusConnected");

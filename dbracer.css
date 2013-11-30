@@ -81,6 +81,10 @@ div {
   text-align: center;
 }
 
+.btnStatus {
+  width: 160px;
+}
+
 .btnStatusConnected {
   background: lightblue;
   border-color: darkblue;
