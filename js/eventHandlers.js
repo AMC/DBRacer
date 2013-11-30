@@ -10,6 +10,7 @@ function connectionsHandler(data) {
   
   if (data.message == "CONNECTED") {
     window.myId = data.id;
+    $(id).addClass("btnStatusCurrentPlayer");
     $("#btnReady").on('click', function() {
       socket.setStatus(myId, "READY")
       $("#preGame").hide();
