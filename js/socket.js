@@ -23,11 +23,11 @@ function Socket(host, port, file) {
     }
      
     this.connection.onmessage = function(messageEvent) {
-      var frame = messageEvent.data;
-      console.log("receieved frame:\n" + frame);
+      var data = JSON.parse(messageEvent.data);
+      console.log("receieved frame:\n" + messageEvent.data);
       
       if (messageEvent.channel = "CONNECTIONS")
-        connectionsHandler(messageEvent.data);
+        connectionsHandler(data);
     }
     
   }
