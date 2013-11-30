@@ -27,7 +27,7 @@ function Socket(host, port, file) {
       console.log("receieved frame:\n" + frame);
       
       if (messageEvent.channel = "CONNECTIONS")
-        connectionsHandler(messageEvent.data);
+        connectionsHandler(frame.data);
     }
     
   }
