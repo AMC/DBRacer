@@ -1,4 +1,4 @@
-<?
+<?php
 
   function ws_handshake($headerIn, $client, $host, $port) {
   	$headers = array();
