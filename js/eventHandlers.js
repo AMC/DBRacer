@@ -1,7 +1,9 @@
 function connectionsHandler(data) {
   var id = "#btnStatus" + data.id;
+  
+  console.log("connection handler for: " + id);
 
-  $(id).removeClass("btnStatusConnected btnStatusReady btnStatusDropped");
+  $(id).removeClass("btnStatus btnStatusConnected btnStatusReady btnStatusDropped");
   
   if (data.message == "CONNECTED" || data.message == "NEW_CONNECTION")
     $(id).addClass("btnStatusConnected");
