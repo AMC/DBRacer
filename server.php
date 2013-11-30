@@ -9,7 +9,8 @@
   // required for socket_select
   $NULL = NULL;
 
-  echo "<pre>";
+  // echo "<pre>";
+  echo "PHP version: " + phpversion() + "\n";
   echo "DBRacer serving starting...\n";
   echo "host: $host \n";
   echo "port: $port \n";
