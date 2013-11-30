@@ -1,0 +1,97 @@
+body {
+  background: #fff;
+  padding: 0;
+  margin: 0;
+  font-family: 'Fascinate';
+  font-size: 16px;
+}
+
+button {
+  font-family: 'Fascinate';
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #999;
+  padding: 5px 10px;
+  background: #ccc;
+    
+}
+
+div {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+.clearFix {
+  clear: both;
+}
+
+.container {
+  width: 800px;
+  margin: 0px auto 20px;
+  border-radius: 5px;
+  border: 2px solid #000;
+  background: rgba(96, 96, 96, .7);
+
+}
+
+.containerFull {
+  width: 100%;
+  margin: 0px auto;
+}
+
+#background {
+  z-index: -1;
+  position: absolute;
+  top: -100%;
+  left: -100%;
+  width: 200%;
+  height: 200%;
+  font-size: 50px;
+  color: #ddd;
+  text-shadow: 2px 2px 2px #999;
+  -webkit-transform: rotate(-30deg);
+  line-height: 200px;
+  word-spacing: 50px;
+}
+
+#players {
+  padding: 10px 0;
+}
+
+#players ul {
+  display: block;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+#players ul li {
+  display: block;
+  width: 33%;
+  float: left;
+  text-align: center;
+}
+
+
+#preGame {
+  height: 500px;
+  text-align: center;
+}
+
+#preGame #btnReady {
+  margin-top: 200px;
+  background: green;
+  border: 2px solid darkgreen;
+  font-size: 2em;
+}
+
+#preGame #btnReady:hover {
+  background: darkgreen;
+}
+
+#game {
+  height: 500px;
+  background: rgba(96, 96, 96, 1);
+  display: none;
+}

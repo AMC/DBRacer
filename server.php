@@ -1,159 +1,153 @@
 <?php
 
-$host = "ec2-54-211-53-228.compute-1.amazonaws.com"; //host
-$port = '4444'; //port
-$null = NULL; //null var
+  require_once 'serverFunctions.php';
+  require_once 'config.php';
 
-echo "Chat serving starting...\n";
-echo "host: $host \n";
-echo "port: $port \n";
+  $clients    = array();
+  $clientsIP  = array();
 
-//Create TCP/IP sream socket
-$socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
-//reuseable port
-socket_set_option($socket, SOL_SOCKET, SO_REUSEADDR, 1);
+  // required for socket_select
+  $NULL = NULL;
 
-//bind socket to specified host
-socket_bind($socket, 0, $port);
+  echo "<pre>";
+  echo "DBRacer serving starting...\n";
+  echo "host: $host \n";
+  echo "port: $port \n";
 
-//listen to port
-socket_listen($socket);
+  set_time_limit(0);
 
-//create & add listning socket to the list
-$clients = array($socket);
+  // output buffering will be implicitly flushed
+  ob_implicit_flush(true);
 
-//start endless loop, so that our script doesn't stop
-while (true) {
-	//manage multipal connections
-	$changed = $clients;
-	//returns the socket resources in $changed array
-	socket_select($changed, $null, $null, 0, 10);
-	
-	//check for new socket
-	if (in_array($socket, $changed)) {
-		$socket_new = socket_accept($socket); //accpet new socket
-		$clients[] = $socket_new; //add socket to client array
-		
-		$header = socket_read($socket_new, 1024); //read data sent by the socket
-		perform_handshaking($header, $socket_new, $host, $port); //perform websocket handshake
-		
-		socket_getpeername($socket_new, $ip); //get ip address of connected socket
-		$response = mask(json_encode(array('type'=>'system', 'message'=>$ip.' connected'))); //prepare json data
-		send_message($response); //notify all users about new connection
-		echo "new connection from $ip\n";
+  echo "creating socket...\n";
+  $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
+  $clients[0] = $socket;
+  $clientsIP[0] = NULL;
+
+  // SO_REUSEADDR : reuse local address
+  socket_set_option($socket, SOL_SOCKET, SO_REUSEADDR, 1);
+
+  echo "binding socket...\n";
+  // $address = 0 accepts all clients
+  socket_bind($socket, 0, $port)
+    or die ("Could not bind to address.\n");
+
+  echo "listening to socket...\n\n";
+  socket_listen($socket);
 
 
-		//make room for new socket
-		$found_socket = array_search($socket, $changed);
-		unset($changed[$found_socket]);
-	}
-	
-	//loop through all connected sockets
-	foreach ($changed as $changed_socket) {	
-		
-		//check for any incomming data
-		while(socket_recv($changed_socket, $buf, 1024, 0) >= 1)
-		{
-			$received_text = unmask($buf); //unmask data
-			$tst_msg = json_decode($received_text); //json decode 
-			$user_name = $tst_msg->name; //sender name
-			$user_message = $tst_msg->message; //message text
-			$user_color = $tst_msg->color; //color
-			
-			//prepare data to be sent to client
-			$response_text = mask(json_encode(array('type'=>'usermsg', 'name'=>$user_name, 'message'=>$user_message, 'color'=>$user_color)));
-			send_message($response_text); //send data
-			echo "$user_name => $user_message \n";
-			break 2; //exist this loop
-		}
-		
-		$buf = @socket_read($changed_socket, 1024, PHP_NORMAL_READ);
-		if ($buf === false) { // check disconnected client
-			// remove client for $clients array
-			$found_socket = array_search($changed_socket, $clients);
-			socket_getpeername($changed_socket, $ip);
-			unset($clients[$found_socket]);
-			
-			//notify all users about disconnected connection
-			$response = mask(json_encode(array('type'=>'system', 'message'=>$ip.' disconnected')));
-			send_message($response);
-		}
-	}
-}
-// close the listening socket
-socket_close($sock);
+  while(true) {
+  
+    $socketsToRead = $clients;
+    
+    // if there are no clients with data, go to next iterations
+    if (socket_select($socketsToRead, $NULL, $NULL, 0, 10) < 1)
+      continue;
+  
+    // check for new client connection
+    if (in_array($socket, $socketsToRead)) {
+      echo "accepting new connection...\n";
+      
+      $newSocket = socket_accept($socket);
+      $header = socket_read($newSocket, 1024);
 
-function send_message($msg)
-{
-	global $clients;
-	foreach($clients as $changed_socket)
-	{
-		@socket_write($changed_socket,$msg,strlen($msg));
-	}
-	return true;
-}
+      $clients[] = $newSocket;
+      $id = array_search($newSocket, $clients);
+      socket_getpeername($newSocket, $clientsIP[$id]);
+
+      echo "initiating handshake with $clientsIP[$id]...\n";
+      ws_handshake($header, $newSocket, $host, $port);
+      
+      $response = create_frame("CONNECTIONS", array(
+        'message' => "CONNECTED",
+        'id'      => $id,
+      ));
+
+      echo "sending welcome message:\n";
+      echo "$response \n";
+
+      send_frame($newSocket, $response);
+
+      echo "removing new client from the \$socketsToRead array...\n";
+      $index = array_search($socket, $socketsToRead);
+      unset($socketsToRead[$index]);
+      
+      echo "notifying new client of existing connections...\n";
+      // ignores original socket
+      for ($i = 0; $i < count($clients); $i++) {
+        if ($clients[$i] != $newSocket && $clientsIP[$i] != NULL) {
+          $response = create_frame("CONNECTIONS", array(
+            'message' => 'NEW_CONNECTION',
+            'id'      => $i,
+            'ip'      => $clientsIP[$i],
+          ));
+          
+          echo "$response \n";
+          send_frame($newSocket, $response);
+        }
+      }
+      
+      $response = create_frame("CONNECTIONS", array(
+        'message' => "NEW_CONNECTION",
+        'id'      => $id,
+        'ip'      => $clientsIP[$id],
+      ));
+      
+      echo "notifying clients of new connection...\n";
+      echo "$response \n";
+      
+      for ($i = 0; $i < count($clients); $i++) {
+        if ($clients[$i] != $newSocket && $clientsIP[$i] != NULL)
+          send_frame($clients[$i], $response);
+      }
+
+      echo "\n";
+
+    } // end check for new client connection
 
 
-//Unmask incoming framed message
-function unmask($text) {
-	$length = ord($text[1]) & 127;
-	if($length == 126) {
-		$masks = substr($text, 4, 4);
-		$data = substr($text, 8);
-	}
-	elseif($length == 127) {
-		$masks = substr($text, 10, 4);
-		$data = substr($text, 14);
-	}
-	else {
-		$masks = substr($text, 2, 4);
-		$data = substr($text, 6);
-	}
-	$text = "";
-	for ($i = 0; $i < strlen($data); ++$i) {
-		$text .= $data[$i] ^ $masks[$i%4];
-	}
-	return $text;
-}
+    // check clients for incoming data
+    foreach ($socketsToRead as $readSocket) {
+      $index = array_search($readSocket, $clients);
+      
+      echo "receiving data...\n";
+      
+      while(socket_recv($readSocket, $frameIn, 1024, 0) >= 1) {
 
-//Encode message for transfer to client.
-function mask($text)
-{
-	$b1 = 0x80 | (0x1 & 0x0f);
-	$length = strlen($text);
-	
-	if($length <= 125)
-		$header = pack('CC', $b1, $length);
-	elseif($length > 125 && $length < 65536)
-		$header = pack('CCn', $b1, 126, $length);
-	elseif($length >= 65536)
-		$header = pack('CCNN', $b1, 127, $length);
-	return $header.$text;
-}
+        $temp = json_decode(unmask($frameIn));
+        $frameOut = create_frame($temp->channel, $temp->data);
+        
+        echo "notifying clients of new message...\n";
+        echo "$frameOut \n";
+        foreach ($clients as $client)
+          if ($client != $readSocket && $client != $socket)
+            send_frame($client, $frameOut);
+            
+        break 2;
+      }
+      
+      $frame = @socket_read($readSocket, 1024, PHP_NORMAL_READ);
 
-//handshake new client.
-function perform_handshaking($receved_header,$client_conn, $host, $port)
-{
-	$headers = array();
-	$lines = preg_split("/\r\n/", $receved_header);
-	foreach($lines as $line)
-	{
-		$line = chop($line);
-		if(preg_match('/\A(\S+): (.*)\z/', $line, $matches))
-		{
-			$headers[$matches[1]] = $matches[2];
-		}
-	}
+      
+      // check if client disconnected
+      if ($frame === false) {
+        echo "client $id disconnected...\n";
+        unset($clients[$index]);
 
-	$secKey = $headers['Sec-WebSocket-Key'];
-	$secAccept = base64_encode(pack('H*', sha1($secKey . '258EAFA5-E914-47DA-95CA-C5AB0DC85B11')));
-	//hand shaking header
-	$upgrade  = "HTTP/1.1 101 Web Socket Protocol Handshake\r\n" .
-	"Upgrade: websocket\r\n" .
-	"Connection: Upgrade\r\n" .
-	"WebSocket-Origin: $host\r\n" .
-	"WebSocket-Location: ws://$host:$port/demo/shout.php\r\n".
-	"Sec-WebSocket-Accept:$secAccept\r\n\r\n";
-	socket_write($client_conn,$upgrade,strlen($upgrade));
-}
+        $frame = create_frame("CONNECTIONS", array(
+          'message' => "CLOSED_CONNECTION",
+          'id'      => $index,
+        ));
 
+        echo "notifying clients of disconnect...\n";
+        echo "$frame \n";
+        foreach ($clients as $client)
+          send_frame($client, $frame);
+        
+      } 
+        
+    } // end checking clients for incoming data
+  } // end while
+
+
+  socket_close($socket);
