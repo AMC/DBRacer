@@ -10,17 +10,17 @@ function connectionsHandler(data) {
   
   if (data.message == "CONNECTED" || data.message == "NEW_CONNECTION") {
     $(id).addClass("btnStatusConnected");
-    $(id).text("Player " + data.id + "connected...");
+    $(id).text("Player " + data.id + " connected");
   }
     
   if (data.message == "READY") {
     $(id).addClass("btnStatusReady");
-    $(id).text("Player " + data.id + "ready...");
+    $(id).text("Player " + data.id + " ready");
   }
     
   if (data.message == "CLOSED_CONNECTION") {
     $(id).addClass("btnStatusDropped");
-    $(id).text("Player " + data.id + "dropped...");
+    $(id).text("Player " + data.id + " dropped");
   }
 
 }
