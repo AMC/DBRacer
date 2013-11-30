@@ -82,7 +82,7 @@
           $i = array_search($client, $clients);
           if ($clients[$i] != $newSocket && $clientsIP[$i] != NULL) {
             $response = create_frame("CONNECTION_STATUS", array(
-              'message' => 'NEW_CONNECTION',
+              'message' => $clientsStatus[$i],
               'id'      => $i,
               'ip'      => $clientsIP[$i],
             ));
@@ -92,7 +92,6 @@
           }
         }
       
-        print_r($clientsStatus);
         $response = create_frame("CONNECTION_STATUS", array(
           'message' => $clientsStatus[$id],
           'id'      => $id,
