@@ -55,10 +55,10 @@ function Socket(host, port, file) {
     this.send("TEST", data);
   }
   
-  this.setStatus = function(status) {
+  this.setStatus = function(id, status) {
     var data = {
       message : status,
-      id      : window.myId,
+      id      : id,
     };
     
     this.send("CONNECTIONS", data);
