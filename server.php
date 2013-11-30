@@ -136,10 +136,12 @@
 
         $temp = json_decode(unmask($frameIn));
         $frameOut = create_frame($temp->channel, $temp->data);
+        echo "*****************\n";
+        print_r($temp);
+        print_r($clientsStatus);
         
         if ($temp->channel == "CONNECTION_STATUS") {
-          echo "*****************\n";
-          print_r($temp);
+          
           echo "id: $temp->data->id \n";
           echo "message: $temp->data->message \n";
           $clientsStatus[$temp->data->id] = $temp->data->message;
