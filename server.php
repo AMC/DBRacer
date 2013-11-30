@@ -1,4 +1,4 @@
-<?php
+<?
 
   require_once 'serverFunctions.php';
   require_once 'config.php';
