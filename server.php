@@ -53,13 +53,14 @@
       $newSocket = socket_accept($socket);
       $header = socket_read($newSocket, 1024);
 
-      if (count($clients) < $maxClients) {
+      echo "initiating handshake with $clientsIP[$id]...\n";
+      ws_handshake($header, $newSocket, $host, $port);
+
+
+      if (count($clients) <= $maxClients) {
         $clients[] = $newSocket;
         $id = array_search($newSocket, $clients);
         socket_getpeername($newSocket, $clientsIP[$id]);
-
-        echo "initiating handshake with $clientsIP[$id]...\n";
-        ws_handshake($header, $newSocket, $host, $port);
       
         $response = create_frame("CONNECTIONS", array(
           'message' => "CONNECTED",
@@ -99,6 +100,14 @@
           if ($clients[$i] != $newSocket && $clientsIP[$i] != NULL)
             send_frame($clients[$i], $response);
         }
+      } else {
+        $response = create_frame("CONNECTIONS", array(
+          'message' => "CONNECTION_REFUSED",
+        ));
+
+        echo "maximum users exceeded:\n";
+        echo "$response \n";
+        
       }
       
       echo "removing new client from the \$socketsToRead array...\n";
