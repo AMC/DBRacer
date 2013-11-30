@@ -26,6 +26,9 @@ function connectionsHandler(data) {
   if (data.message == "READY") {
     $(id).addClass("btnStatusReady");
     $(id).text("Player " + data.id + " ready");
+    
+    // TODO: when all connected players are ready, start countdown
+
   }
     
   if (data.message == "CLOSED_CONNECTION") {
@@ -33,4 +36,9 @@ function connectionsHandler(data) {
     $(id).text("Player " + data.id + " dropped");
   }
 
+}
+
+
+function dbracerHandler(data) {
+  
 }
