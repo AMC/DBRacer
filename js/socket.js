@@ -42,13 +42,14 @@ function Socket(host, port, file) {
   this.close = function() {
     this.connection.close();
   }
-  
-}
 
-function testSocket() {
-  var data = {
-    message : "work dammit!",
-  };
   
-  socket.send("TEST", data);
+  this.testSocket = function() {
+    var data = {
+      message : "work dammit!",
+    };
+
+    this.connection.send("TEST", data);
+  }
+  
 }

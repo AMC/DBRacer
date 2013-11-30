@@ -77,7 +77,6 @@
         $("#background").append("DBRacer ");
       
       window.socket = new Socket("ec2-54-211-13-122.compute-1.amazonaws.com", "4444", "server.php");
-      //window.socket = new Socket("localhost", "4444", "server.php");
       socket.connect();
       
 
