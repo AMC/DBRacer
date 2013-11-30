@@ -58,7 +58,7 @@
 
 
       if (count($clients) <= $maxClients) {
-        $clients[] = $newSocket;
+        $clients[get_open_index($clients, $maxClients)] = $newSocket;
         $id = array_search($newSocket, $clients);
         socket_getpeername($newSocket, $clientsIP[$id]);
       

@@ -33,6 +33,12 @@
   function send_frame($client, $frame) {
 	  socket_write($client, $frame, strlen($frame));
   }
+  
+  function get_open_index($array, $length) {
+    for ($i = 0; $i <= $length; $i++)
+      if (array_key_exists($i, $array))
+        return $i;
+  }
 
 
   // unmask incoming framed message
