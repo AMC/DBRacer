@@ -3,9 +3,10 @@
   require_once 'serverFunctions.php';
   require_once 'config.php';
 
-  $clients    = array();
-  $clientsIP  = array();
-  $maxClients = 6;
+  $clients       = array();
+  $clientsIP     = array();
+  $clientsStatus = array();
+  $maxClients    = 6;
 
   // required for socket_select
   $NULL = NULL;
@@ -62,6 +63,7 @@
       if (count($clients) <= $maxClients) {
         $clients[get_open_index($clients, $maxClients)] = $newSocket;
         $id = array_search($newSocket, $clients);
+        $clientsStatus[$id] = "NEW_CONNECTION";
         socket_getpeername($newSocket, $clientsIP[$id]);
       
         $response = create_frame("CONNECTIONS", array(
@@ -91,7 +93,7 @@
         }
       
         $response = create_frame("CONNECTIONS", array(
-          'message' => "NEW_CONNECTION",
+          'message' => $clientsStatus[$id],
           'id'      => $id,
           'ip'      => $clientsIP[$id],
         ));
@@ -135,6 +137,9 @@
         $temp = json_decode(unmask($frameIn));
         $frameOut = create_frame($temp->channel, $temp->data);
         
+        if ($temp->channel == "CONNECTIONS" && $temp->data->message == "READY")
+          $clientsStatus[$temp->data->id] = "READY";
+        
         echo "notifying clients of new message...\n";
         echo "$frameOut \n";
         foreach ($clients as $client)
@@ -151,6 +156,7 @@
       if ($frame === false) {
         echo "client $id disconnected...\n";
         unset($clients[$index]);
+        $clientsStatus[$id] = "CLOSED_CONNECTION";
 
         $frame = create_frame("CONNECTIONS", array(
           'message' => "CLOSED_CONNECTION",
