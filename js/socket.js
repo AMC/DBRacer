@@ -58,7 +58,7 @@ function Socket(host, port, file) {
   this.setStatus = function(status) {
     var data = {
       message : status,
-      id      : myId,
+      id      : window.myId,
     };
     
     this.send("CONNECTIONS", data);
