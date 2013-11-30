@@ -82,15 +82,18 @@ div {
 }
 
 .btnStatusConnected {
-  background: blue;
+  background: lightblue;
+  border-color: darkblue;
 }
 
 .btnStatusReady {
   background: green;
+  border-color: darkgreen;
 }
 
 .btnStatusDropped {
   background: red;
+  border-color: darkred;
 }
 
 
