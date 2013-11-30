@@ -52,7 +52,7 @@ function Socket(host, port, file) {
       message : "work dammit!",
     };
 
-    this.connection.send("TEST", data);
+    this.send("TEST", data);
   }
   
   this.setStatus = function(status) {
@@ -61,7 +61,7 @@ function Socket(host, port, file) {
       id      : myId,
     };
     
-    this.connection.send("CONNECTIONS", data);
+    this.send("CONNECTIONS", data);
   }
   
 }
