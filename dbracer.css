@@ -81,6 +81,20 @@ div {
   text-align: center;
 }
 
+.btnStatusConnected {
+  background: blue;
+}
+
+.btnStatusReady {
+  background: green;
+}
+
+.btnStatusDropped {
+  background: red;
+}
+
+
+
 
 #preGame {
   height: 500px;

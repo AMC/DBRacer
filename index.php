@@ -67,6 +67,7 @@
   <script src='http://code.jquery.com/jquery-1.10.2.min.js'></script>
   <script src="js/socket.js"></script>
   <script src="js/database.js"></script>
+  <script src="js/eventHandlers.js"></script>
 
   
   <script>

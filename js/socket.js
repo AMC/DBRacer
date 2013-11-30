@@ -25,6 +25,9 @@ function Socket(host, port, file) {
     this.connection.onmessage = function(messageEvent) {
       var frame = messageEvent.data;
       console.log("receieved frame:\n" + frame);
+      
+      if (messageEvent.channel = "CONNECTIONS")
+        connectionsHandler(frame);
     }
     
   }
