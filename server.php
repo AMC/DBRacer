@@ -137,8 +137,14 @@
         $temp = json_decode(unmask($frameIn));
         $frameOut = create_frame($temp->channel, $temp->data);
         
-        if ($temp->channel == "CONNECTION_STATUS") 
+        if ($temp->channel == "CONNECTION_STATUS") {
+          echo "*****************\n";
+          print_r($temp);
+          echo "id: $temp->data->id \n";
+          echo "message: $temp->data->message \n";
           $clientsStatus[$temp->data->id] = $temp->data->message;
+          print_r($clientsStatus);
+        }
         
         echo "notifying clients of new message...\n";
         echo "$frameOut \n";
