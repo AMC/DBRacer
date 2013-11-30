@@ -83,10 +83,10 @@
       $("#btnReady").on('click', function() {
         var readyMessage = {
           message : "READY",
-          id      : myId
+          id      : myId,
         };
         
-        connectionHandler(readyMessage);
+        connectionsHandler(readyMessage);
       });
       
       
