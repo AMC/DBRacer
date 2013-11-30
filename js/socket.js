@@ -62,6 +62,7 @@ function Socket(host, port, file) {
     };
     
     this.send("CONNECTIONS", data);
+    connectionsHandler(data);
   }
   
 }
