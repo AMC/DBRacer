@@ -76,9 +76,14 @@
       
       for (i = 0; i < 100; i++)
         $("#background").append("DBRacer ");
-      
+        
       window.socket = new Socket("<?= $host ?>", "<?= $port ?>", "server.php");
       socket.connect();
+      
+      $("#btnReady").on('click', function(){
+        socket.setStatus("READY");
+      });
+      
       
 
       

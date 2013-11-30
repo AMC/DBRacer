@@ -8,11 +8,18 @@ function connectionsHandler(data) {
 
   $(id).removeClass("btnStatusConnected btnStatusReady btnStatusDropped");
   
-  if (data.message == "CONNECTED" || data.message == "NEW_CONNECTION") {
+  if (data.message == "CONNECTED") {
+    window.myId = data.id;
     $(id).addClass("btnStatusConnected");
     $(id).text("Player " + data.id + " connected");
   }
-    
+  
+  if (data.message == "NEW_CONNECTION") {
+    window.myId = data.id;
+    $(id).addClass("btnStatusConnected");
+    $(id).text("Player " + data.id + " connected");
+  }
+      
   if (data.message == "READY") {
     $(id).addClass("btnStatusReady");
     $(id).text("Player " + data.id + " ready");
