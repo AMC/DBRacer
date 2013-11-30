@@ -29,7 +29,7 @@ function Socket(host, port, file) {
       if (messageEvent.channel = "CONNECTION_STATUS")
         connectionsHandler(data);
         
-      if (messageEvent.channel = "DBRACER")
+      if (messageEvent.channel = "GAME_STATUS")
         dbracerHandler(data);
         
     }
