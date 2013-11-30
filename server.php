@@ -76,7 +76,8 @@
 
         echo "notifying new client of existing connections...\n";
         // ignores original socket
-        for ($i = 0; $i < count($clients); $i++) {
+        foreach($clients as $client) {
+          $i = array_search($client, $clients);
           if ($clients[$i] != $newSocket && $clientsIP[$i] != NULL) {
             $response = create_frame("CONNECTIONS", array(
               'message' => 'NEW_CONNECTION',
@@ -98,7 +99,8 @@
         echo "notifying clients of new connection...\n";
         echo "$response \n";
       
-        for ($i = 0; $i < count($clients); $i++) {
+        foreach ($clients as $client) {
+          $i = array_search($client, $clients);
           if ($clients[$i] != $newSocket && $clientsIP[$i] != NULL)
             send_frame($clients[$i], $response);
         }
