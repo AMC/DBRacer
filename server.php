@@ -66,7 +66,7 @@
         $clientsStatus[$id] = "NEW_CONNECTION";
         socket_getpeername($newSocket, $clientsIP[$id]);
       
-        $response = create_frame("CONNECTIONS", array(
+        $response = create_frame("CONNECTION_STATUS", array(
           'message' => "CONNECTED",
           'id'      => $id,
         ));
@@ -81,7 +81,7 @@
         foreach($clients as $client) {
           $i = array_search($client, $clients);
           if ($clients[$i] != $newSocket && $clientsIP[$i] != NULL) {
-            $response = create_frame("CONNECTIONS", array(
+            $response = create_frame("CONNECTION_STATUS", array(
               'message' => 'NEW_CONNECTION',
               'id'      => $i,
               'ip'      => $clientsIP[$i],
@@ -92,7 +92,7 @@
           }
         }
       
-        $response = create_frame("CONNECTIONS", array(
+        $response = create_frame("CONNECTION_STATUS", array(
           'message' => $clientsStatus[$id],
           'id'      => $id,
           'ip'      => $clientsIP[$id],
@@ -107,7 +107,7 @@
             send_frame($clients[$i], $response);
         }
       } else {
-        $response = create_frame("CONNECTIONS", array(
+        $response = create_frame("CONNECTION_STATUS", array(
           'message' => "CONNECTION_REFUSED",
         ));
 
@@ -137,8 +137,8 @@
         $temp = json_decode(unmask($frameIn));
         $frameOut = create_frame($temp->channel, $temp->data);
         
-        if ($temp->channel == "CONNECTIONS" && $temp->data->message == "READY")
-          $clientsStatus[$temp->data->id] = "READY";
+        if ($temp->channel == "CONNECTION_STATUS") 
+          $clientsStatus[$temp->data->id] = $temp->data->message;
         
         echo "notifying clients of new message...\n";
         echo "$frameOut \n";
@@ -158,7 +158,7 @@
         unset($clients[$index]);
         $clientsStatus[$id] = "CLOSED_CONNECTION";
 
-        $frame = create_frame("CONNECTIONS", array(
+        $frame = create_frame("CONNECTION_STATUS", array(
           'message' => "CLOSED_CONNECTION",
           'id'      => $index,
         ));

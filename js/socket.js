@@ -26,7 +26,7 @@ function Socket(host, port, file) {
       var data = JSON.parse(messageEvent.data).data;
       console.log("receieved frame:\n" + messageEvent.data);
       
-      if (messageEvent.channel = "CONNECTIONS")
+      if (messageEvent.channel = "CONNECTION_STATUS")
         connectionsHandler(data);
     }
     
