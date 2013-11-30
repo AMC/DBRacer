@@ -21,6 +21,7 @@ button {
   border: 1px solid #999;
   padding: 5px 10px;
   background: #ccc;
+  box-sizing: border-box;
     
 }
 
