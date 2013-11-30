@@ -31,7 +31,7 @@
   }
 
   function send_frame($client, $frame) {
-	  socket_write($client, $frame, strlen($frame));
+	  @socket_write($client, $frame, strlen($frame));
   }
   
   function get_open_index($array, $length) {
