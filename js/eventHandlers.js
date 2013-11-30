@@ -1,6 +1,7 @@
 function connectionsHandler(data) {
-  var id = "#btnStatus" + data.id.toString();
+  var id = "#btnStatus" + data.id;
   
+  window.temp = data;
   
   console.log("connection handler for: " + id);
   console.log(data);
