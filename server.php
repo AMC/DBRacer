@@ -11,7 +11,9 @@
   $NULL = NULL;
 
   // echo "<pre>";
-  echo "PHP version: " + phpversion() + "\n";
+  echo "\n\n\n";
+  echo "PHP version: ";
+  echo phpversion() + "\n";
   echo "DBRacer serving starting...\n";
   echo "host: $host \n";
   echo "port: $port \n";

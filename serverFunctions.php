@@ -36,7 +36,7 @@
   
   function get_open_index($array, $length) {
     for ($i = 0; $i <= $length; $i++)
-      if (array_key_exists($i, $array))
+      if (!array_key_exists($i, $array))
         return $i;
   }
 
