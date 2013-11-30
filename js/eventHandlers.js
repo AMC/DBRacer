@@ -15,7 +15,6 @@ function connectionsHandler(data) {
   }
   
   if (data.message == "NEW_CONNECTION") {
-    window.myId = data.id;
     $(id).addClass("btnStatusConnected");
     $(id).text("Player " + data.id + " connected");
   }
