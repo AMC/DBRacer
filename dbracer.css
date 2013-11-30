@@ -102,8 +102,7 @@ div {
 }
 
 .btnStatusCurrentPlayer {
-  border-style: dashed;
-  border-width: 2px;
+  outline: 2px dashed black;
 }
 
 
