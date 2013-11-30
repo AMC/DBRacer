@@ -80,7 +80,14 @@
       window.socket = new Socket("<?= $host ?>", "<?= $port ?>", "server.php");
       socket.connect();
       
-      $("#btnReady").on('click', connectionHandler({id : myId, message : "READY"});
+      $("#btnReady").on('click', function() {
+        var readyMessage = {
+          message : "READY",
+          id      : myId
+        };
+        
+        connectionHandler(readyMessage);
+      });
       
       
 
