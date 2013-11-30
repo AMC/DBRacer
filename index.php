@@ -80,7 +80,7 @@
       window.socket = new Socket("<?= $host ?>", "<?= $port ?>", "server.php");
       socket.connect();
       
-      $("#btnReady").on('click', socket.setStatus(myId, "READY"));
+      
       
       
 

@@ -30,6 +30,8 @@ function Socket(host, port, file) {
         connectionsHandler(data);
     }
     
+    $("#btnReady").on('click', socket.setStatus(myId, "READY"));
+    
   }
   
   this.send = function(channel, data) {
