@@ -61,7 +61,7 @@ function Socket(host, port, file) {
       id      : id,
     };
     
-    this.send("CONNECTIONS", data);
+    this.send("CONNECTION_STATUS", data);
     connectionsHandler(data);
   }
   
