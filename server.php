@@ -108,6 +108,7 @@
         echo "maximum users exceeded:\n";
         echo "$response \n";
         
+        send_frame($newSocket, $response);
       }
       
       echo "removing new client from the \$socketsToRead array...\n";
