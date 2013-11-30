@@ -13,7 +13,7 @@ function connectionsHandler(data) {
     $("#btnReady").on('click', function() {
       socket.setStatus(myId, "READY")
       $("#preGame").hide();
-      $("#game").slideDown();
+      $("#game").show();
     });
     
     $(id).addClass("btnStatusConnected");
