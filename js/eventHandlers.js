@@ -6,7 +6,6 @@ function connectionsHandler(data) {
   $(id).removeClass("btnStatusConnected btnStatusReady btnStatusDropped");
   
   if (data.message == "CONNECTED") {
-    alert("connected!");
     window.myId = data.id;
     window.myRacecar = new Racecar(myId);
     database.getTrack(1);

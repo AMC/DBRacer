@@ -194,12 +194,15 @@ function Database() {
   this.getTrack = function(id) {
     var query;
     
+    // There is only one track
+    id = 1;
+    
     query = "SELECT width, height, track, grass, barrier, startX, startY FROM tracks " 
-          + "WHERE id = 1";
+          + "WHERE id = ?";
           
     console.log("executing query: " + query);  
     this.connection.transaction(function(tx) {
-      tx.executeSql(query, [race, carId, race, carId], function(tx, results) {
+      tx.executeSql(query, [id], function(tx, results) {
         console.log("loading track from database");
         window.track = results.row.item(0);
       }, function(tx, err) {
