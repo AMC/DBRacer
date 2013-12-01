@@ -44,6 +44,8 @@ function Database() {
     this.connection.transaction(function(tx) {
       tx.executeSql(query, [], function(tx, results){
         console.log("table created.");
+      }, function (tx, err) {
+        console.log("query failed.");
       });
     });
     
