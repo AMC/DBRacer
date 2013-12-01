@@ -51,16 +51,16 @@ function Database() {
     });
     
     query2 = "CREATE TABLE IF NOT EXISTS cars ( "
-          + "  race      INTEGER, "
-          + "  timestamp INTEGER PRIMARY KEY AUTOINCREMENT, "
-          + "  carId     INTEGER, "
-          + "  x         INTEGER, "
-          + "  y         INTEGER, "
-          + "  angle     INTEGER, "
-          + "  lap       INTEGER "
-          + ")";
+           + "  race      INTEGER, "
+           + "  timestamp INTEGER PRIMARY KEY AUTOINCREMENT, "
+           + "  carId     INTEGER, "
+           + "  x         INTEGER, "
+           + "  y         INTEGER, "
+           + "  angle     INTEGER, "
+           + "  lap       INTEGER "
+           + ")";
     
-    console.log("creating table: " + query);
+    console.log("creating table: " + query2);
     
     this.connection.transaction(function(tx) {
       tx.executeSql(query2, [], function(tx, results){
