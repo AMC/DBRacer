@@ -67,6 +67,7 @@
   <script src='http://code.jquery.com/jquery-1.10.2.min.js'></script>
   <script src="js/socket.js"></script>
   <script src="js/database.js"></script>
+  <script src="js/racecar.js"></script>
   <script src="js/eventHandlers.js"></script>
 
   
@@ -80,7 +81,10 @@
       window.socket = new Socket("<?= $host ?>", "<?= $port ?>", "server.php");
       socket.connect();
       
+      window.database = new Database();
+      database.connect();
       
+
       
       
 

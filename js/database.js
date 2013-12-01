@@ -1,0 +1,224 @@
+function Database() {
+  
+  this.connection = null;
+  
+  this.supported = function() {
+    if (!window.openDatabase)
+      return false;
+    return true;
+  }
+  
+  this.connect = function() {
+    var name        = 'DBRacer';
+    var version     = '1.0';
+    var description = 'Car and Track information';
+    
+    this.connection = openDatabase(name, version, description, 2*1024*1024);
+    
+    if (!this.connection) {
+      console.log("A database error occured.");
+      return false;
+    }
+    
+    console.log("Database connected.");
+    
+    this.createTables();
+      
+  }
+  
+  this.createTables = function() {
+    var query;
+    query  = "CREATE TABLE IF NOT EXISTS track ( "
+           + "  id      UNIQUE, "
+           + "  width   INT, "
+           + "  height  INT, "
+           + "  track   TEXT, "
+           + "  grass   TEXT, "
+           + "  barrier TEXT, "
+           + "  startX  INT, "
+           + "  startY  INT "
+           + ")";
+    
+    console.log("creating table: " + query);
+    
+    this.connection.transaction(function(tx) {
+      tx.executeSql(query, [], function(tx, results){
+        console.log("table created.");
+      });
+    });
+    
+    query = "CREATE TABLE IF NOT EXISTS cars ( "
+          + "  race      INT, "
+          + "  timestamp INT AUTOINCREMENT, "
+          + "  carId     INT, "
+          + "  x         INT, "
+          + "  y         INT, "
+          + "  angle     INT, "
+          + "  lap       INT "
+          + ")";
+    
+    console.log("creating table: " + query);
+    
+    this.connection.transaction(function(tx) {
+      tx.executeSql(query, [], function(tx, results){
+        console.log("table created.");
+      });
+    });
+    
+  }
+  
+  this.dropTables = function() {
+    var query;
+    
+    query = "DROP TABLE IF EXISTS track";
+    console.log("dropping table: " + query);
+    
+    this.connection.transaction(function(tx) {
+      tx.executeSql(query, [], function(tx, results){
+        console.log("table dropped.");
+      });
+    });
+    
+    query = "DROP TABLE IF EXISTS cars";
+    console.log("dropping table: " + query);
+    
+    this.connection.transaction(function(tx) {
+      tx.executeSql(query, [], function(tx, results){
+        console.log("table dropped.");
+      });
+    });
+    
+    
+  }
+  
+  
+  this.getPosition = function (race, carId, callBack) {
+    var query;
+    var car;
+    
+    query = "SELECT carId, x, y, angle, lap FROM cars "
+          + "WHERE race = ? "
+          + "AND carId = ? "
+          + "AND timestamp = (SELECT MAX(timestamp) FROM cars "
+          + "  WHERE race = ? AND carId = ?) ";
+        
+    console.log("executing query: " + query);  
+    this.connection.transaction(function(tx) {
+      tx.executeSql(query, [race, carId, race, carId], function(tx, results) {
+        console.log("query ok");
+        callBack(results.rows.item(0));
+      }, function(tx, err) {
+        console.log(err);
+      });
+    });
+    
+    
+  }
+  
+  this.setPosition = function(race, carId, x, y, angle, lap) {
+    var query;
+    
+    query = "INSERT INTO cars (race, carId, x, y, angle, lap)  "
+          + "VALUES ( " 
+          +   race + ", " 
+          +   carId + ", " 
+          +   x + ", " 
+          +   y + ", "
+          +   angle + ", "
+          +   lap
+          + ")";
+    
+    console.log("setting position of car " + carId);
+    this.connection.transaction(function(tx) {
+      tx.executeSql(query, [], function(tx, results){
+        console.log("record inserted");
+        
+        var data = {
+          race      : race, 
+          timestamp : timestamp,
+          carId     : carId,
+          x         : x,
+          y         : y,
+          angle     : angle,
+          lap       : lap,
+        }
+
+        socket.send("GAME_STATUS", data);
+      });
+    });    
+  }
+  
+  
+  this.removeTrack = function(id) {
+    var query;
+    
+    query = "DELETE FROM tracks "
+          + "WHERE id = ? ";
+    
+    console.log("executing query: " + query);  
+    this.connection.transaction(function(tx) {
+      tx.executeSql(query, [race, carId, race, carId], function(tx, results) {
+        console.log("query ok");
+      }, function(tx, err) {
+        console.log(err);
+        
+      });
+    });     
+  }
+  
+  this.setTrack = function(id, width, height, track, grass, barrier, startX, startY) {
+    var query;
+    
+    query = "INSERT INTO tracks (id, width, height, track, grass, barrier, startX, startY) VALUES "
+          + "id = ?, "
+          + "width = ?, "
+          + "height = ?, "
+          + "track = ?, "
+          + "grass = ?, "
+          + "barrier = ?, "
+          + "startX = ?, "
+          + "startY = ? "
+          + ")";
+
+    console.log("executing query: " + query);  
+    this.connection.transaction(function(tx) {
+      tx.executeSql(query, [id, width, height, track, grass, barrier, startX, startY], function(tx, results) {
+        console.log("query ok");
+      }, function(tx, err) {
+        console.log(err);
+
+      });
+    });
+  }
+  
+  this.getTrack = function(id) {
+    var query;
+    
+    query = "SELECT width, height, track, grass, barrier, startX, startY FROM tracks " 
+          + "WHERE id = 1";
+          
+    console.log("executing query: " + query);  
+    this.connection.transaction(function(tx) {
+      tx.executeSql(query, [race, carId, race, carId], function(tx, results) {
+        console.log("loading track from database");
+        window.track = results.row.item(0);
+      }, function(tx, err) {
+        console.log(err);
+        console.log("loading track from server");
+        this.refreshTrack(id);
+      });
+    });
+
+
+  }
+  
+  this.refreshTrack = function(id) {
+    var data = {
+      id : 1
+    };
+    
+    socket.send("TRACK_DATA", data);
+  }
+
+  
+}

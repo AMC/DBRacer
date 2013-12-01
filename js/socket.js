@@ -19,18 +19,21 @@ function Socket(host, port, file) {
     }
     
     this.connection.onerror = function(error) {
-      console.log("An error occurred.");
+      console.log("A socket error occurred.");
     }
      
     this.connection.onmessage = function(messageEvent) {
       var data = JSON.parse(messageEvent.data).data;
       console.log("receieved frame:\n" + messageEvent.data);
       
-      if (messageEvent.channel = "CONNECTION_STATUS")
+      if (messageEvent.channel == "CONNECTION_STATUS")
         connectionsHandler(data);
         
-      if (messageEvent.channel = "GAME_STATUS")
+      if (messageEvent.channel == "GAME_STATUS")
         dbracerHandler(data);
+        
+      if (messageEvent.channel == "TRACK_DATA")
+        trackHanlder(data);
         
     }
     
