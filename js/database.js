@@ -209,12 +209,16 @@ function Database() {
     console.log("executing query: " + query);  
     this.connection.transaction(function(tx) {
       tx.executeSql(query, [id], function(tx, results) {
-        console.log("loading track from database");
-        window.track = results.row.item(0);
+        if (results.rows.length > 0) {
+          console.log("loading track from database");
+          window.track = results.row.item(0);
+        } else {
+          console.log("loading track from server");
+          database.refreshTrack(id);  
+        }
       }, function(tx, err) {
         console.log(err);
-        console.log("loading track from server");
-        database.refreshTrack(id);
+        
       });
     });
 
