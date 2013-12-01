@@ -1,4 +1,4 @@
-<?
+<?php
 
   echo "checking for running processes\n";
   $pid = `lsof -t -i:4444`;
