@@ -27,16 +27,16 @@ function Database() {
   }
   
   this.createTables = function() {
-    var query;
+    var query, query2;
     query  = "CREATE TABLE IF NOT EXISTS track ( "
            + "  id      UNIQUE, "
-           + "  width   INT, "
-           + "  height  INT, "
+           + "  width   INTEGER, "
+           + "  height  INTEGER, "
            + "  track   TEXT, "
            + "  grass   TEXT, "
            + "  barrier TEXT, "
-           + "  startX  INT, "
-           + "  startY  INT "
+           + "  startX  INTEGER, "
+           + "  startY  INTEGER "
            + ")";
     
     console.log("creating table: " + query);
@@ -50,20 +50,20 @@ function Database() {
       });
     });
     
-    query = "CREATE TABLE IF NOT EXISTS cars ( "
-          + "  race      INT, "
-          + "  timestamp INT AUTOINCREMENT, "
-          + "  carId     INT, "
-          + "  x         INT, "
-          + "  y         INT, "
-          + "  angle     INT, "
-          + "  lap       INT "
+    query2 = "CREATE TABLE IF NOT EXISTS cars ( "
+          + "  race      INTEGER, "
+          + "  timestamp INTEGER PRIMARY KEY AUTOINCREMENT, "
+          + "  carId     INTEGER, "
+          + "  x         INTEGER, "
+          + "  y         INTEGER, "
+          + "  angle     INTEGER, "
+          + "  lap       INTEGER "
           + ")";
     
     console.log("creating table: " + query);
     
     this.connection.transaction(function(tx) {
-      tx.executeSql(query, [], function(tx, results){
+      tx.executeSql(query2, [], function(tx, results){
         console.log("table created.");
       }, function (tx, err) {
         console.log("query failed.");
