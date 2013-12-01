@@ -46,6 +46,7 @@ function Database() {
         console.log("table created.");
       }, function (tx, err) {
         console.log("query failed.");
+        console.log(err);
       });
     });
     
@@ -66,6 +67,7 @@ function Database() {
         console.log("table created.");
       }, function (tx, err) {
         console.log("query failed.");
+        console.log(err);
       });
     });
     
