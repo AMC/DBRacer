@@ -8,7 +8,7 @@ function connectionsHandler(data) {
   if (data.message == "CONNECTED") {
     window.myId = data.id;
     window.myRacecar = new Racecar(myId);
-    database.getTrack(1);
+
     
     $(id).addClass("btnStatusCurrentPlayer");
     $("#btnReady").on('click', function() {
