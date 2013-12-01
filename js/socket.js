@@ -33,7 +33,7 @@ function Socket(host, port, file) {
         dbracerHandler(frame.data);
         
       if (frame.channel == "TRACK_DATA")
-        trackHanlder(frame.data);
+        trackHandler(frame.data);
         
     }
     
