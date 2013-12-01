@@ -150,7 +150,7 @@
           );
           
           echo "sending track data...\n";
-          $frameOut = create_frame("TRACK_DATA", $data)
+          $frameOut = create_frame("TRACK_DATA", $data);
           send_frame($readSocket, $frameOut);
 
         } else {
