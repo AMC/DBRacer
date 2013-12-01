@@ -23,18 +23,18 @@ function Socket(host, port, file) {
     }
      
     this.connection.onmessage = function(messageEvent) {
-      var data = JSON.parse(messageEvent.data).data;
-      console.log("receieved frame:\n" + messageEvent.data);
-      console.log(messageEvent.channel);
+      var frame = JSON.parse(messageEvent.data);
+      console.log("receieved frame:\n" + frame);
+      console.log(frame.channel);
       
-      if (messageEvent.channel == "CONNECTION_STATUS")
-        connectionsHandler(data);
+      if (frame.channel == "CONNECTION_STATUS")
+        connectionsHandler(frame.data);
         
-      if (messageEvent.channel == "GAME_STATUS")
-        dbracerHandler(data);
+      if (frame.channel == "GAME_STATUS")
+        dbracerHandler(frame.data);
         
-      if (messageEvent.channel == "TRACK_DATA")
-        trackHanlder(data);
+      if (frame.channel == "TRACK_DATA")
+        trackHanlder(frame.data);
         
     }
     
