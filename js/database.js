@@ -169,17 +169,15 @@ function Database() {
   this.setTrack = function(id, width, height, track, grass, barrier, startX, startY) {
     var query;
     
-    console.log("********" + barrier + startX + startY);
-    
     query = "INSERT INTO tracks (id, width, height, track, grass, barrier, startX, startY) VALUES "
-          + "id = ?, "
-          + "width = ?, "
-          + "height = ?, "
-          + "track = ?, "
-          + "grass = ?, "
-          + "barrier = ?, "
-          + "startX = ?, "
-          + "startY = ? "
+          + "id      = '?', "
+          + "width   = '?', "
+          + "height  = '?', "
+          + "track   = '?', "
+          + "grass   = '?', "
+          + "barrier = '?', "
+          + "startX  = '?', "
+          + "startY  = '?' "
           + ")";
 
     console.log("executing query: " + query);  
