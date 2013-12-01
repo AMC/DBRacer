@@ -11,7 +11,7 @@ function Socket(host, port, file) {
     this.connection = new WebSocket(this.uri);
     
     this.connection.onopen = function(event) {
-      console.log("Connection established.");
+      console.log("Socket connected.");
     }
     
     this.connection.onclose = function(event) {
