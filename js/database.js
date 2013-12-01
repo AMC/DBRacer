@@ -197,7 +197,7 @@ function Database() {
     // There is only one track
     id = 1;
     
-    query = "SELECT width, height, track, grass, barrier, startX, startY FROM tracks " 
+    query = "SELECT width, height, track, grass, barrier, startX, startY FROM track " 
           + "WHERE id = ?";
           
     console.log("executing query: " + query);  
@@ -208,7 +208,7 @@ function Database() {
       }, function(tx, err) {
         console.log(err);
         console.log("loading track from server");
-        this.refreshTrack(id);
+        database.refreshTrack(id);
       });
     });
 
