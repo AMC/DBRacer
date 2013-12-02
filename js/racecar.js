@@ -10,6 +10,7 @@ function Racecar() {
   this.speed	= 0;
   this.angle	= 0;
   this.lap		= 0;
+  this.name		= "";
   
   var TO_RADIANS = Math.PI/180;
   

@@ -1,74 +1,78 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>DBRacer</title>
-    <link href="racer.css" rel="stylesheet">
-  </head>
-  <body onload="init()">
-  	<div id="titleText">
-   		<label id="titleLabel">DBRacer</label>
-    </div>
-  	<div id="startText">
-		<label id="startLabel">5</label>
-    </div>
-  <div id="lapDiv">
-   	  <label id="myLapText">Player 1: </label>
-   	  <label id="myLaps">0</label>
-   	  <br>
-   	  <label id="opLapText">Player 2: </label>
-	  <label id="opLaps">0</label>
-  </div>
-    <!-- The canvas for the panning background -->
-    <canvas id="background" width="1000" height="600">
-      Your browser does not support canvas.
-    </canvas>
-    <canvas id="carCanvas" width="1000" height="600">
-      Your browser does not support canvas.
-    </canvas>
-  <script src="js/track.js"></script>
-  <script src="js/racecar.js"></script>
-  <script src="js/main.js"></script>
-    
-  	<div id="selectScreen">
-   	  <label>Welcome to DBRacer!</label>
-        <br>
-		<label>Please type your name and select your car's color</label>
-        <br><br>
-        <form>
-            <input id="playerName" name="name" type="text" value="Player Name" size="50" maxlength="30"><br>
-          <br>
-          <p>
-              <label>
+    <head>
+        <title>DBRacer</title>
+        <link href="racer.css" rel="stylesheet">
+    </head>
+    <body onload="init()">
+        <div id="wrapper">
+            <div id="titleText">
+                <label id="titleLabel">DBRacer</label>
+            </div>
+            <div id="startText">
+                <label id="startLabel">5</label>
+            </div>
+            <div id="lapDiv">
+                <label id="myLapText">Player 1: </label>
+                <label id="myLaps">0</label>
+                <br>
+                <label id="opLapText">Player 2: </label>
+                <label id="opLaps">0</label>
+            </div>
+            <!-- The canvas for the background and cars -->
+            <canvas id="background" width="1000" height="600">
+            	Your browser does not support canvas.
+            </canvas>
+            <canvas id="carCanvas" width="1000" height="600">
+	            Your browser does not support canvas.
+            </canvas>
+        </div>
+     
+		<script src="js/track.js"></script>
+        <script src="js/racecar.js"></script>
+        <script src="js/main.js"></script>
+        
+        <div id="selectScreen">
+            <label>Welcome to DBRacer!</label>
+            <br>
+            <label>Please type your name and select your car's color</label>
+            <br><br>
+            <form>
+                <input id="playerName" name="name" type="text" value="Player Name" size="50" maxlength="30"><br>
+                <br>
+                <p>
+                <label>
                 <input type="radio" name="colorGroup" value="red" id="colorGroup_0" checked>
-            Red</label>
-              <br>
-              <label>
+                Red</label>
+                <br>
+                <label>
                 <input type="radio" name="colorGroup" value="blue" id="colorGroup_1">
                 Blue</label>
-              <br>
-              <label>
+                <br>
+                <label>
                 <input type="radio" name="colorGroup" value="yellow" id="colorGroup_2">
                 Yellow</label>
-              <br>
-            <label>
+                <br>
+                <label>
                 <input type="radio" name="colorGroup" value="green" id="colorGroup_3">
-              Green</label>
-              <br>
-          </p>
-        </form>
-        <br>
-        <input name="play" type="button" value="Play Game!" onClick="waitForOther()">
-  	</div>
-    <div id="resultsScreen" style="z-index:-1;">
-		<label>RACE RESULTS:</label>
-        <br><br>
-        <label id="myResults">Player 1: </label>
-        <br>
-        <label id="opResults">Player 2: </label>
-        <br><br>
-    	<FORM>
-        	<INPUT TYPE="button" onClick="history.go(0)" VALUE="Refresh">
-        </FORM>
-    </div>
-  </body>
+                Green</label>
+                <br>
+                </p>
+            </form>
+            <br>
+            <input name="play" type="button" value="Play Game!" onClick="waitForOther()">
+        </div>
+        
+        <div id="resultsScreen">
+            <label>RACE RESULTS:</label>
+            <br><br>
+            <label id="myResults">Player 1: </label>
+            <br>
+            <label id="opResults">Player 2: </label>
+            <br><br>
+            <form>
+                <input type="button" onClick="history.go(0)" value="Refresh">
+            </form>
+        </div>
+	</body>
 </html>

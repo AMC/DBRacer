@@ -4,7 +4,7 @@ canvas
 	top: 0px;
 	left: 0px;
 	background: transparent;
-	z-index:0;
+	z-index:1;
 }
 
 #titleText
@@ -15,7 +15,7 @@ canvas
 	color:#FFF;
 	font-size:28px;
 	font-weight:bold;
-	z-index:1;
+	z-index:2;
 	font-family:"Arial Black", Gadget, sans-serif;
 }
 
@@ -28,7 +28,7 @@ canvas
 	color:#FFF;
 	font-size:80px;
 	font-weight:bold;
-	z-index:1;
+	z-index:2;
 	font-family:"Arial Black", Gadget, sans-serif;
 }
 
@@ -40,7 +40,7 @@ canvas
 	text-align: left;
 	color: #FFF;
 	font-size: 20px;
-	z-index: 1;
+	z-index: 2;
 	font-family: "Arial Black", Gadget, sans-serif;
 }
 
@@ -70,6 +70,7 @@ canvas
 
 #resultsScreen
 {
+	z-index:0;
 	position:absolute;
 	top:0px;
 	right:0px;
