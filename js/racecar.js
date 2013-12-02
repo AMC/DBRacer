@@ -1,5 +1,5 @@
 function Racecar() {
-  this.id     = Math.floor(Math.random()*99999);
+  this.id     = Math.floor(Math.random()*999999);
   
   //this.race   = 0;
   this.source	= "";
