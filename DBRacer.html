@@ -25,9 +25,6 @@
     <canvas id="carCanvas" width="1000" height="600">
       Your browser does not support canvas.
     </canvas>
-    <canvas id="opcarCanvas" width="1000" height="600">
-      Your browser does not support canvas.
-    </canvas>
   <script src="js/track.js"></script>
   <script src="js/racecar.js"></script>
   <script src="js/main.js"></script>
@@ -61,6 +58,17 @@
         </form>
         <br>
         <input name="play" type="button" value="Play Game!" onClick="waitForOther()">
-  </div>
+  	</div>
+    <div id="resultsScreen" style="z-index:-1;">
+		<label>RACE RESULTS:</label>
+        <br><br>
+        <label id="myResults">Player 1: </label>
+        <br>
+        <label id="opResults">Player 2: </label>
+        <br><br>
+    	<FORM>
+        	<INPUT TYPE="button" onClick="history.go(0)" VALUE="Refresh">
+        </FORM>
+    </div>
   </body>
 </html>

@@ -1,7 +1,7 @@
 function Racecar() {
   this.id     = Math.floor(Math.random()*999999);
   
-  //this.race   = 0;
+  this.race		= 0;
   this.source	= "";
   this.x		= 0;
   this.y		= 0;
@@ -40,17 +40,19 @@ function Racecar() {
   // pushes current position to database
   this.setPosition = function(x, y, angle, lap) {
     this.updatePosition(x, y, angle, lap);
-    database.setPosition(this.race, this.carId, x, y, angle, lap);
+    database.setPosition(this.race, this.id, x, y, angle, lap);
   }
   
   // draws the car
   this.draw = function(car_context) {
+	/*
     carImage.save();
 	carImage.clearRect(0,0,1000,600);
     carImage.translate(this.x, this.y);
     carImage.rotate(this.angle * TO_RADIANS);
     carImage.drawImage(this.image, -(this.source.width/2), -(this.image.height/2));
     carImage.restore();
+	*/
   }
   
 
