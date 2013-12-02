@@ -5,10 +5,8 @@ function Racecar() {
   this.source	= "";
   this.x		= 0;
   this.y		= 0;
-  this.dx		= 0;
-  this.dy		= 0;
   this.speed	= 0;
-  this.angle	= 0;
+  this.angle	= 180;
   this.lap		= 0;
   this.name		= "";
   
@@ -46,18 +44,43 @@ function Racecar() {
   
   // draws the car
   this.draw = function(car_context) {
-	/*
-    carImage.save();
-	carImage.clearRect(0,0,1000,600);
-    carImage.translate(this.x, this.y);
-    carImage.rotate(this.angle * TO_RADIANS);
-    carImage.drawImage(this.image, -(this.source.width/2), -(this.image.height/2));
-    carImage.restore();
-	*/
+    car_context.save();
+    car_context.translate(this.x, this.y);
+    car_context.rotate(this.angle * TO_RADIANS);
+    car_context.drawImage(this.source, -(this.source.width/2), -(this.source.height/2));
+    car_context.restore();
   }
   
+  this.getSpeed = function() {
+	var dx = Math.sin(this.angle * TO_RADIANS) * this.speed;
+	var dy = Math.cos(this.angle * TO_RADIANS) * this.speed * -1;
+	this.x += dx;
+	this.y += dy;
+  }
 
-  
+	//FUNCTION MOVES CAR LEFT
+	this.moveLeft = function(t) {
+		this.angle -= this.speed*1.4;
+		this.angle = (this.angle+360) % 360;
+	}
+	
+	//FUNCTION MOVES CAR UP
+	this.moveUp = function(t) {
+		if (this.speed >= t.maxSpeed) {this.speed = t.maxSpeed;}
+		else {this.speed += t.speedRate;}
+	}
+	
+	//FUNCTION MOVES CAR RIGHT
+	this.moveRight = function(t) {
+		this.angle += this.speed*1.4;
+		this.angle = (this.angle+360) % 360;
+	}
+	
+	//FUNCTION MOVES CAR DOWN
+	this.moveDown = function(t) {
+		if (this.speed <= 0) {this.speed = 0;}
+		else {this.speed -= t.speedRate;}
+	}
   
   
   

@@ -63,10 +63,16 @@ function getNewPosition()
 	//opCar.getPosition();
 	
 	//MOVE CAR BASED ON CURRENT KEY DOWN STATES
-	if (keyState[65]) {moveLeft();}
-	if (keyState[87]) {moveUp();}
-	if (keyState[68]) {moveRight();}
-	if (keyState[83]) {moveDown();}
+	if (keyState[65]) {myCar.moveLeft(t);}
+	if (keyState[87]) {myCar.moveUp(t);}
+	if (keyState[68]) {myCar.moveRight(t);}
+	if (keyState[83]) {myCar.moveDown(t);}
+	
+	//CHECKS OBSTACLES (GRASS AND BARRIERS)
+	checkObstacles();
+	
+	//UPDATE CAR'S POSITION BASED ON SPEED AND ANGLE
+	myCar.getSpeed();
 	
 	//GET CAR'S POSITION ON GRID
 	getGridPosition();
@@ -86,20 +92,12 @@ function getNewPosition()
 		}
 	}
 	
-	//CHECKS OBSTACLES (GRASS AND BARRIERS)
-	checkObstacles();
-	
-	//UPDATE CAR'S POSITION BASED ON SPEED AND ANGLE
-	speedXY();
-	myCar.x += myCar.dx;
-	myCar.y += myCar.dy;
-	
 	//DRAWS LOCATION OF PLAYER'S CAR, AND EVERY CAR IN OPCAR ARRAY
 	ccar_context.clearRect(0,0,t.width,t.height);
-	drawRotatedImage(ccar_context,myCar.source,myCar.x,myCar.y,myCar.angle);
+	myCar.draw(ccar_context);
 	for (var i = 0; i < opCar.length; i++)
 	{
-		drawRotatedImage(ccar_context,opCar[i].source,opCar[i].x,opCar[i].y,opCar[i].angle);
+		opCar[i].draw(ccar_context);
 	}
 	
 	//SENDS CAR INFO TO OTHER MACHINE
@@ -109,31 +107,13 @@ function getNewPosition()
 	checkEnd();
 } //end getNewPosition()
 
-//FUNCTION DRAWS THE CAR ON ITS CANVAS
-function drawRotatedImage(carImage, image, x, y, angle)
-{
-    carImage.save();
-	//carImage.clearRect(0,0,1000,600);
-    carImage.translate(x, y);
-    carImage.rotate(angle * TO_RADIANS);
-    carImage.drawImage(image, -(image.width/2), -(image.height/2));
-    carImage.restore();
-}
-
-//CONVERT THE CAR'S SPEED TO A DELTA X AND DELTA y
-function speedXY()
-{
-	myCar.dx = Math.sin(myCar.angle * TO_RADIANS) * myCar.speed;
-	myCar.dy = Math.cos(myCar.angle * TO_RADIANS) * myCar.speed * -1;
-} //end speedXY()
-
 //GET CURRENT AND PREVIOUS TILE LOCATIONS (TO CHECK FOR LAPPING)
 function getGridPosition()
 {
 	prevx = gridx;
 	prevy = gridy;
-	gridx = Math.floor((myCar.x+myCar.dx)/t.tileSize);
-	gridy = Math.floor((myCar.y+myCar.dy)/t.tileSize);
+	gridx = Math.floor(myCar.x/t.tileSize);
+	gridy = Math.floor(myCar.y/t.tileSize);
 } //end getGridPosition()
 
 //CHECKS GRID FOR GRASS OR BARRIER AND EITHER SLOW OR DEFLECT CAR
@@ -270,43 +250,14 @@ function waitForOther()
 	
 	//debug:
 	opCar[0] = new Racecar();
+	opCar[0].init(0,925,325,0);
 	opCar[0].source = carImage1;
-	opCar[0].x = 925;
-	opCar[0].y = 325;
 	
 	//database.setState("run");
 	
 	//DRAW THE CARS AND START THE TIMER
 	getNewPosition();
 	intro = setInterval(onTimer,1000);
-}
-
-//FUNCTION MOVES CAR LEFT
-function moveLeft()
-{
-	myCar.angle -= myCar.speed*1.4;
-	myCar.angle = (myCar.angle+360) % 360;
-}
-
-//FUNCTION MOVES CAR UP
-function moveUp()
-{
-	if (myCar.speed >= t.maxSpeed) {myCar.speed = t.maxSpeed;}
-	else {myCar.speed += t.speedRate;}
-}
-
-//FUNCTION MOVES CAR RIGHT
-function moveRight()
-{
-	myCar.angle += myCar.speed*1.4;
-	myCar.angle = (myCar.angle+360) % 360;
-}
-
-//FUNCTION MOVES CAR DOWN
-function moveDown()
-{
-	if (myCar.speed <= 0) {myCar.speed = 0;}
-	else {myCar.speed -= t.speedRate;}
 }
 
 //PAGE'S ONLOAD FUNCTION (DOES NOTHING RIGHT NOW)
