@@ -11,7 +11,7 @@ canvas
 {
 	position:absolute;
 	width:100%;
-	text-align:center;
+	top:-10px;
 	color:#FFF;
 	font-size:28px;
 	font-weight:bold;
@@ -35,9 +35,9 @@ canvas
 #lapDiv
 {
 	position: absolute;
-	top: 44px;
-	right: 196px;
-	text-align: right;
+	top: 40px;
+	left: 600px;
+	text-align: left;
 	color: #FFF;
 	font-size: 20px;
 	z-index: 1;
@@ -67,3 +67,4 @@ canvas
 	font-weight:bold;
 	font-family:"Arial Black", Gadget, sans-serif;
 }
+

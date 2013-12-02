@@ -12,23 +12,24 @@
 		<label id="startLabel">5</label>
     </div>
   <div id="lapDiv">
-   	  <label id="myLapText">Player 1</label>
+   	  <label id="myLapText">Player 1: </label>
    	  <label id="myLaps">0</label>
    	  <br>
-   	  <label id="opLapText">Player 2</label>
+   	  <label id="opLapText">Player 2: </label>
 	  <label id="opLaps">0</label>
   </div>
     <!-- The canvas for the panning background -->
-  	<canvas id="background" width="1000" height="600">
-      Your browser does not support canvas.
-  </canvas>
-  	<canvas id="carCanvas" width="1000" height="600">
+    <canvas id="background" width="1000" height="600">
       Your browser does not support canvas.
     </canvas>
-  	<canvas id="opcarCanvas" width="1000" height="600">
+    <canvas id="carCanvas" width="1000" height="600">
       Your browser does not support canvas.
     </canvas>
-  <script src="race.js"></script>
+    <canvas id="opcarCanvas" width="1000" height="600">
+      Your browser does not support canvas.
+    </canvas>
+  <script src="js/racecar.js"></script>
+  <script src="js/main.js"></script>
     
   	<div id="selectScreen">
    	  <label>Welcome to DBRacer!</label>
@@ -36,7 +37,7 @@
 		<label>Please type your name and select your car's color</label>
         <br><br>
         <form>
-            <input name="name" type="text" value="Player Name" size="50" maxlength="30"><br>
+            <input id="playerName" name="name" type="text" value="Player Name" size="50" maxlength="30"><br>
           <br>
           <p>
               <label>
@@ -60,5 +61,5 @@
         <br>
         <input name="play" type="button" value="Play Game!" onClick="waitForOther()">
   </div>
-</body>
+  </body>
 </html>

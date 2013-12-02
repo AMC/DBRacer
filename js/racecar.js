@@ -1,13 +1,17 @@
-function Racecar(id) {
-  this.id     = id;
+function Racecar() {
+  this.id     = Math.floor(Math.random()*99999);
   
-  this.race   = 0;
-  this.x      = 0;
-  this.y      = 0;
-  this.speed  = 0;
-  this.angle  = 0;
-  this.lap    = 0;
+  //this.race   = 0;
+  this.source	= "";
+  this.x		= 0;
+  this.y		= 0;
+  this.dx		= 0;
+  this.dy		= 0;
+  this.speed	= 0;
+  this.angle	= 0;
+  this.lap		= 0;
   
+  var TO_RADIANS = Math.PI/180;
   
   // sets initial values from the track
   this.init = function(race, x, y, angle) {
@@ -40,8 +44,13 @@ function Racecar(id) {
   }
   
   // draws the car
-  this.draw = function() {
-    
+  this.draw = function(car_context) {
+    carImage.save();
+	carImage.clearRect(0,0,1000,600);
+    carImage.translate(this.x, this.y);
+    carImage.rotate(this.angle * TO_RADIANS);
+    carImage.drawImage(this.image, -(this.source.width/2), -(this.image.height/2));
+    carImage.restore();
   }
   
 
