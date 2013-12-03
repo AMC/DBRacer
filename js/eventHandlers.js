@@ -9,6 +9,7 @@ function connectionsHandler(data) {
     window.myId = data.id;
     window.myCar = new Racecar(myId);
     database.getTrack(1);
+    connections++;
     
     $(id).addClass("btnStatusCurrentPlayer");
     $("#btnReady").on('click', function() {
@@ -16,7 +17,9 @@ function connectionsHandler(data) {
       myCar.setStatus("READY");
       $("#preGame").hide();
       $("#wrapper").show();
-      waitForOther();
+
+      //checkForStart();
+      //waitForOther();
     });
     
     $(id).addClass("btnStatusConnected");
@@ -28,27 +31,24 @@ function connectionsHandler(data) {
     $(id).text("Player " + data.id + " connected");
     var tCar = new Racecar(data.id);
     opCar.push(tCar);
+    connections++;
   }
       
   if (data.message == "READY") {
     $(id).addClass("btnStatusReady");
     $(id).text("Player " + data.id + " ready");
-    
-
-    if (data.id != myCar.id) {
-      for (var i = 0; i < opCar.length; i++)
-        if (opCar[i].id == data.id)
-          opCar[i].status = "READY";
-    }
-    
-
-
+    ready++;    
       
+    checkForReady();
   }
     
   if (data.message == "CLOSED_CONNECTION") {
     $(id).addClass("btnStatusDropped");
     $(id).text("Player " + data.id + " dropped");
+    for (var i = 0; i < opCar.length; i++)
+      if (opCar[i].id == id && opCar[i].status == "READY")
+        ready--;
+    connections--;
   }
 
 }
@@ -72,5 +72,13 @@ function dbCallback (data) {
 function trackHandler(data) {
   window.track = data;
   database.setTrack(data.id, data.width, data.height, data.track, data.grass, data.barrier, data.startX, data.startY);
+}
+
+function checkForReady() {
+  if (connections == ready) {
+    console.log("start!");
+    //startGame();
+  }
+    
 }
 
