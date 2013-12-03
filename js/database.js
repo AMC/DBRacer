@@ -242,7 +242,9 @@ function Database() {
     this.connection.transaction(function(tx){
       tx.executeSql(query, [], function(tx, results) {
         console.log("query ok");
-        console.log(results);
+        
+        for (var i = 0; i < result.rows.length; i++)
+          console.log(results.rows.item(i));
       }, function(tx, err){
         console.log("query failed");
         console.log(err);
