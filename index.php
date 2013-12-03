@@ -67,14 +67,6 @@
         <div id="startText">
           <label id="startLabel">5</label>
         </div>
-        
-        <div id="youWin">
-          <h2>You Win!</h2>
-        </div>
-        
-        <div id='youLose'>
-          <h2>You Lose!</h2>
-        </div>
 
         <!-- The canvas for the background and cars -->
         <canvas id="canvasBackground" width="1000" height="600">
@@ -83,6 +75,14 @@
         <canvas id="carCanvas" width="1000" height="600">
           Your browser does not support canvas.
         </canvas>
+        
+        <div id="youWin">
+          <h2>You Win!</h2>
+        </div>
+        
+        <div id='youLose'>
+          <h2>You Lose!</h2>
+        </div>
     </div>
   </div>
   
