@@ -77,7 +77,7 @@ function trackHandler(data) {
 function checkForReady() {
   if (connections == ready) {
     console.log("start!");
-    //startGame();
+      startGame();
   }
     
 }
