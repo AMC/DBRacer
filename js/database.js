@@ -239,6 +239,8 @@ function Database() {
   }
   
   this.query = function(query) {
+    console.log("executing query: ");
+    console.log(query);
     this.connection.transaction(function(tx){
       tx.executeSql(query, [], function(tx, results) {
         console.log("query ok");

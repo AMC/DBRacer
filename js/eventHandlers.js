@@ -71,7 +71,7 @@ function dbCallback (data) {
 
 function trackHandler(data) {
   window.track = data;
-  database.setTrack(data.id, data.width, data.height, data.track, data.grass, data.barrier, data.startX, data.startY);
+  database.setTrack(data.id, data.laps, data.width, data.height, data.track, data.grass, data.barrier, data.startX, data.startY);
 }
 
 function checkForReady() {
