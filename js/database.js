@@ -237,6 +237,17 @@ function Database() {
     
     socket.send("TRACK_DATA", data);
   }
+  
+  this.query = function(query) {
+    this.connection.transaction(function(tx){
+      tx.executeSql(query, [], function(tx, results) {
+        console.log("query ok");
+        console.log(results);
+      }, function(){
+              dbLog("query failed");
+      });
+    });
+  }
 
   
 }
