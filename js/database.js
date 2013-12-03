@@ -208,7 +208,7 @@ function Database() {
     // There is only one track
     id = 1;
     
-    query = "SELECT id, laps, width, height, track, grass, barrier, startX, startY FROM track " 
+    query = "SELECT * FROM track " 
           + "WHERE id = ?";
           
     console.log("executing query: " + query);  
