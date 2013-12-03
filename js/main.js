@@ -199,6 +199,7 @@ function waitForOther()
 	drawBG();
 	
 	//BUSY WAIT UNTIL ALL CARS ARE READY
+/*
 	while (myCar.status != "READY");
 	
 	var ready; 
@@ -209,7 +210,7 @@ function waitForOther()
         ready++;
 	}
 	
-	
+*/	
 	
 	if (myCar.id == 1 || myCar.id == 5)			{myCar.source = carImage1;}
 	else if (myCar.id == 2 || myCar.id == 6)	{myCar.source = carImage2;}
