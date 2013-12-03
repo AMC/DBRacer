@@ -17,7 +17,7 @@ function connectionsHandler(data) {
       myCar.setStatus("READY");
       $("#preGame").hide();
       $("#wrapper").show();
-      checkForReady();
+
       //checkForStart();
       //waitForOther();
     });
