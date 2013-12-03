@@ -243,7 +243,7 @@ function Database() {
       tx.executeSql(query, [], function(tx, results) {
         console.log("query ok");
         
-        for (var i = 0; i < result.rows.length; i++)
+        for (var i = 0; i < results.rows.length; i++)
           console.log(results.rows.item(i));
       }, function(tx, err){
         console.log("query failed");
