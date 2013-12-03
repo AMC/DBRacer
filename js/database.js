@@ -243,8 +243,9 @@ function Database() {
       tx.executeSql(query, [], function(tx, results) {
         console.log("query ok");
         console.log(results);
-      }, function(){
+      }, function(tx, err){
         console.log("query failed");
+        console.log(err);
       });
     });
   }
