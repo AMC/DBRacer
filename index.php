@@ -103,7 +103,7 @@
       for (i = 0; i < 100; i++)
         $("#background").append("DBRacer ");
         
-      window.connected = 0;
+      window.connections = 0;
       window.ready = 0;
       
       window.socket = new Socket("<?= $host ?>", "<?= $port ?>", "server.php");
