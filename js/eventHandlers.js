@@ -55,6 +55,7 @@ function connectionsHandler(data) {
 
 
 function dbracerHandler(data) {
+  database.setPosition(data.timestamp, data.id, data.x, data.y, data.angle, data.lap);
   
 }
 
@@ -64,8 +65,7 @@ function dbCallback (data) {
   console.log("racecar callback");
   console.log(data);
   
-  // we should probably use an array of racecards indexed by id
-  // we can then do something like cars[data.id].updatePosition(x, y, z, angle, lap)
+  opCar[data.id].updatePosition(data.x, data.y, data.angle, data.lap);
 }
 
 

@@ -1,7 +1,6 @@
 function Racecar(id) {
   this.id     = myId;
   
-  this.race		= 0;
   this.source	= "";
   this.x		= 725;
   this.y		= 250;
@@ -13,8 +12,7 @@ function Racecar(id) {
   var TO_RADIANS = Math.PI/180;
   
   // sets initial values from the track
-  this.init = function(race, x, y, angle) {
-    this.race  = race;
+  this.init = function(x, y, angle) {
     this.x     = x;
     this.y     = y;
     this.angle = angle;
@@ -24,7 +22,7 @@ function Racecar(id) {
   // pulls other opponent's current position from database
   // and notifies dbCallback()
   this.getPosition = function() {
-    database.getPosition(this.race, this.id, dbCallback);
+    database.getPosition(this.id, dbCallback);
   }
   
   // updates the car from the callback
@@ -38,8 +36,8 @@ function Racecar(id) {
   
   // pushes current position to database
   this.setPosition = function(x, y, angle, lap) {
-    this.updatePosition(x, y, angle, lap);
-    database.setPosition(this.race, this.id, x, y, angle, lap);
+    //this.updatePosition(x, y, angle, lap);
+    database.setPosition(this.id, x, y, angle, lap);
   }
   
   this.setStatus = function(status) {

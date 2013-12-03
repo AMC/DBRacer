@@ -116,16 +116,18 @@ function Database() {
       tx.executeSql(query, [], function(tx, results){
         console.log("record inserted");
         
-        var data = {
-          timestamp : timestamp,
-          carId     : carId,
-          x         : x,
-          y         : y,
-          angle     : angle,
-          lap       : lap,
-        }
+        if (carId == myId) {
+          var data = {
+            timestamp : timestamp,
+            carId     : carId,
+            x         : x,
+            y         : y,
+            angle     : angle,
+            lap       : lap,
+          }
 
-        socket.send("GAME_STATUS", data);
+          socket.send("GAME_STATUS", data);
+        }
       });
     });    
   }
