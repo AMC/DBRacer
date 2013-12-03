@@ -160,11 +160,11 @@ function checkEnd()
 		//STORES THE PLACES OF THE CARS TO SHOW IN RESULTS
 		if (isEnd == 1)
 		{
-			document.getElementById("youWin").style.display = inherit;
+			document.getElementById("youWin").style.display = inline;
 		}
 		else
 		{
-			document.getElementById("youLose").style.display = inherit;
+			document.getElementById("youLose").style.display = inline;
 		}
 	}
 } //end checkEnd()
