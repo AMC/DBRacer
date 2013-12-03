@@ -44,7 +44,7 @@ function connectionsHandler(data) {
     $(id).addClass("btnStatusDropped");
     $(id).text("Player " + data.id + " dropped");
     for (var i = 0; i < opCar.length; i++)
-      if (opCar[i].id == id && opCar[i]status == "READY")
+      if (opCar[i].id == id && opCar[i].status == "READY")
         ready--;
     connections--;
   }
