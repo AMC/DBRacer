@@ -188,7 +188,7 @@ function Database() {
   this.setTrack = function(id, laps, width, height, track, grass, barrier, startX, startY) {
     var query;
     
-    query = "INSERT INTO track (id, width, height, track, grass, barrier, startX, startY) "
+    query = "INSERT INTO track (id, laps, width, height, track, grass, barrier, startX, startY) "
           + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     console.log("executing query: " + query);  
@@ -208,7 +208,7 @@ function Database() {
     // There is only one track
     id = 1;
     
-    query = "SELECT * FROM track " 
+    query = "SELECT id, laps, width, height, track, grass, barrier, startX, startY FROM track " 
           + "WHERE id = ?";
           
     console.log("executing query: " + query);  
