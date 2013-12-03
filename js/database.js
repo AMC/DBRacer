@@ -73,27 +73,8 @@ function Database() {
   }
   
   this.dropTables = function() {
-    var query;
-    
-    query = "DROP TABLE track";
-    console.log("dropping table: " + query);
-    
-    this.connection.transaction(function(tx) {
-      tx.executeSql(query, [], function(tx, results){
-        console.log("track table dropped.");
-      });
-    });
-    
-    query = "DROP TABLE cars";
-    console.log("dropping table: " + query);
-    
-    this.connection.transaction(function(tx) {
-      tx.executeSql(query, [], function(tx, results){
-        console.log("car table dropped.");
-      });
-    });
-    
-    
+    this.query("DROP TABLE track");
+    this.query("DROP TABLE cars");    
   }
   
   
