@@ -16,7 +16,9 @@ function connectionsHandler(data) {
       myCar.setStatus("READY");
       $("#preGame").hide();
       $("#wrapper").show();
-      waitForOther();
+      
+      //checkForStart();
+      //waitForOther();
     });
     
     $(id).addClass("btnStatusConnected");
@@ -28,27 +30,23 @@ function connectionsHandler(data) {
     $(id).text("Player " + data.id + " connected");
     var tCar = new Racecar(data.id);
     opCar.push(tCar);
+    connections++;
   }
       
   if (data.message == "READY") {
     $(id).addClass("btnStatusReady");
     $(id).text("Player " + data.id + " ready");
-    
-
-    if (data.id != myCar.id) {
-      for (var i = 0; i < opCar.length; i++)
-        if (opCar[i].id == data.id)
-          opCar[i].status = "READY";
-    }
-    
-
-
+    ready++;    
       
   }
     
   if (data.message == "CLOSED_CONNECTION") {
     $(id).addClass("btnStatusDropped");
     $(id).text("Player " + data.id + " dropped");
+    for (var i = 0; i < opCar.length; i++)
+      if (opCar[i].id == id && opCar[i]status == "READY")
+        ready--;
+    connections--;
   }
 
 }
