@@ -237,7 +237,7 @@ function onTimer()
 	else if (start == 0)
 	{
 		document.getElementById("startLabel").innerHTML = "GO!";
-		mainloop = setInterval(getNewPosition, 20);
+		mainloop = setInterval(getNewPosition, 50);
 	}
 	else if (start == -2)
 	{
