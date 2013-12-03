@@ -60,10 +60,10 @@ function drawBG()
 function getNewPosition()
 {
 	//MOVE CAR BASED ON CURRENT KEY DOWN STATES
-	if (keyState[65]) {myCar.moveLeft(t);}
-	if (keyState[87]) {myCar.moveUp(t);}
-	if (keyState[68]) {myCar.moveRight(t);}
-	if (keyState[83]) {myCar.moveDown(t);}
+	if (keyState[65]) {myCar.moveLeft(dTrack);}
+	if (keyState[87]) {myCar.moveUp(dTrack);}
+	if (keyState[68]) {myCar.moveRight(dTrack);}
+	if (keyState[83]) {myCar.moveDown(dTrack);}
 	
 	//CHECKS OBSTACLES (GRASS AND BARRIERS)
 	checkObstacles();
