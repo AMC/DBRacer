@@ -80,7 +80,7 @@ function Database() {
     
     this.connection.transaction(function(tx) {
       tx.executeSql(query, [], function(tx, results){
-        console.log("table dropped.");
+        console.log("track table dropped.");
       });
     });
     
@@ -89,7 +89,7 @@ function Database() {
     
     this.connection.transaction(function(tx) {
       tx.executeSql(query, [], function(tx, results){
-        console.log("table dropped.");
+        console.log("car table dropped.");
       });
     });
     
