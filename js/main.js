@@ -185,8 +185,12 @@ function waitForOther()
 	carImage4.src = "assets/car4.png";
 	
 	//GET SELECTED CAR IMAGE AND SET THE CAR TO THAT IMAGE
-	myCar.source = carImage1;
-
+	//myCar.source = carImage1;
+	
+	if (myCar.id == 1 || myCar.id == 5)			{myCar.source = carImage1;}
+	else if (myCar.id == 2 || myCar.id == 6)	{myCar.source = carImage2;}
+	else if (myCar.id == 3)						{myCar.source = carImage3;}
+	else if (myCar.id == 4)						{myCar.source = carImage4;}
 	
 	
 	//GET THE MAP ARRAYS FROM THE DATABASE TO DRAW THE GRASS, TRACK, AND BARRIERS

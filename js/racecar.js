@@ -3,8 +3,8 @@ function Racecar(id) {
   
   this.race		= 0;
   this.source	= "";
-  this.x		= 950;
-  this.y		= 325;
+  this.x		= 725;
+  this.y		= 250;
   this.speed	= 0;
   this.angle	= 0;
   this.lap		= 0;
