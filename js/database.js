@@ -30,6 +30,7 @@ function Database() {
     var query, query2;
     query  = "CREATE TABLE IF NOT EXISTS track ( "
            + "  id      UNIQUE, "
+           + "  laps    INTEGER, "
            + "  width   INTEGER, "
            + "  height  INTEGER, "
            + "  track   TEXT, "
@@ -51,7 +52,6 @@ function Database() {
     });
     
     query2 = "CREATE TABLE IF NOT EXISTS cars ( "
-           + "  race      INTEGER, "
            + "  timestamp INTEGER PRIMARY KEY AUTOINCREMENT, "
            + "  carId     INTEGER, "
            + "  x         INTEGER, "
@@ -98,35 +98,32 @@ function Database() {
   }
   
   
-  this.getPosition = function (race, carId, callBack) {
+  this.getPosition = function (carId, callBack) {
     var query;
     var car;
     
     query = "SELECT carId, x, y, angle, lap FROM cars "
-          + "WHERE race = ? "
           + "AND carId = ? "
           + "AND timestamp = (SELECT MAX(timestamp) FROM cars "
-          + "  WHERE race = ? AND carId = ?) ";
+          + "  WHERE carId = ?) ";
         
     console.log("executing query: " + query);  
     this.connection.transaction(function(tx) {
-      tx.executeSql(query, [race, carId, race, carId], function(tx, results) {
+      tx.executeSql(query, [carId, carId], function(tx, results) {
         console.log("query ok");
         callBack(results.rows.item(0));
       }, function(tx, err) {
         console.log(err);
       });
     });
-    
-    
+       
   }
   
-  this.setPosition = function(race, carId, x, y, angle, lap) {
+  this.setPosition = function(carId, x, y, angle, lap) {
     var query;
     
-    query = "INSERT INTO cars (race, carId, x, y, angle, lap)  "
+    query = "INSERT INTO cars (carId, x, y, angle, lap)  "
           + "VALUES ( " 
-          +   race + ", " 
           +   carId + ", " 
           +   x + ", " 
           +   y + ", "
@@ -140,7 +137,6 @@ function Database() {
         console.log("record inserted");
         
         var data = {
-          race      : race, 
           timestamp : timestamp,
           carId     : carId,
           x         : x,
@@ -153,6 +149,24 @@ function Database() {
       });
     });    
   }
+
+
+  // removes position data  
+  this.endRace = function () {
+    
+    query = "DELETE FROM cars ";
+        
+    console.log("executing query: " + query);  
+    this.connection.transaction(function(tx) {
+      tx.executeSql(query, [], function(tx, results) {
+        console.log("query ok");
+        callBack(results.rows.item(0));
+      }, function(tx, err) {
+        console.log(err);
+      });
+    });
+       
+  }
   
   
   this.removeTrack = function(id) {
@@ -163,7 +177,7 @@ function Database() {
     
     console.log("executing query: " + query);  
     this.connection.transaction(function(tx) {
-      tx.executeSql(query, [race, carId, race, carId], function(tx, results) {
+      tx.executeSql(query, [id], function(tx, results) {
         console.log("query ok");
       }, function(tx, err) {
         console.log(err);
@@ -172,15 +186,15 @@ function Database() {
     });     
   }
   
-  this.setTrack = function(id, width, height, track, grass, barrier, startX, startY) {
+  this.setTrack = function(id, laps, width, height, track, grass, barrier, startX, startY) {
     var query;
     
     query = "INSERT INTO track (id, width, height, track, grass, barrier, startX, startY) "
-          + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+          + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     console.log("executing query: " + query);  
     this.connection.transaction(function(tx) {
-      tx.executeSql(query, [id, width, height, track, grass, barrier, startX, startY], function(tx, results) {
+      tx.executeSql(query, [id, laps, width, height, track, grass, barrier, startX, startY], function(tx, results) {
         console.log("query ok");
       }, function(tx, err) {
         console.log(err);
@@ -195,7 +209,7 @@ function Database() {
     // There is only one track
     id = 1;
     
-    query = "SELECT width, height, track, grass, barrier, startX, startY FROM track " 
+    query = "SELECT laps, width, height, track, grass, barrier, startX, startY FROM track " 
           + "WHERE id = ?";
           
     console.log("executing query: " + query);  
