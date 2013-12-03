@@ -56,7 +56,7 @@ function connectionsHandler(data) {
 
 function dbracerHandler(data) {
   database.setPosition(data.timestamp, data.id, data.x, data.y, data.angle, data.lap);
-  
+  opCar[data.id].updatePosition(data.x, data.y, data.angle, data.lap);
 }
 
 
