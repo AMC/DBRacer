@@ -244,7 +244,7 @@ function Database() {
         console.log("query ok");
         console.log(results);
       }, function(){
-              dbLog("query failed");
+        console.log("query failed");
       });
     });
   }
