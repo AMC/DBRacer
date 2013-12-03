@@ -167,26 +167,21 @@ function checkEnd()
 	}
 } //end checkEnd()
 
-
-
-
-
-//this function waits until the other racer is ready to go
-function waitForOther()
+function startGame()
 {
-	//INIT CAR IMAGES
-	var carImage1 = new Image();
-	carImage1.src = "assets/car1.png";
-	var carImage2 = new Image();
-	carImage2.src = "assets/car2.png";
-	var carImage3 = new Image();
-	carImage3.src = "assets/car3.png";
-	var carImage4 = new Image();
-	carImage4.src = "assets/car4.png";
+	/**########GET RID OF BUSY WAIT HERE WHEN CONFIRM METHOD WORKS#########**/
+	/*
+	//BUSY WAIT UNTIL ALL CARS ARE READY
+	while (myCar.status != "READY");
 	
-	//GET SELECTED CAR IMAGE AND SET THE CAR TO THAT IMAGE
-	//myCar.source = carImage1;
-	
+	var ready; 
+	while (ready != opCar.length) {
+    ready = 0;
+    for (i = 0; i < opCar.length; i++)
+      if (opCar[i].status == "READY")
+        ready++;
+	}
+	*/
 	
 	//GET THE MAP ARRAYS FROM THE DATABASE TO DRAW THE GRASS, TRACK, AND BARRIERS
 	/*
@@ -198,40 +193,8 @@ function waitForOther()
 	//DRAW THE BACKGROUND GRASS AND TRACK
 	drawBG();
 	
-	//BUSY WAIT UNTIL ALL CARS ARE READY
-/*
-	while (myCar.status != "READY");
-	
-	var ready; 
-	while (ready != opCar.length) {
-    ready = 0;
-    for (i = 0; i < opCar.length; i++)
-      if (opCar[i].status == "READY")
-        ready++;
-	}
-	
-*/	
-	
-	if (myCar.id == 1 || myCar.id == 5)			{myCar.source = carImage1;}
-	else if (myCar.id == 2 || myCar.id == 6)	{myCar.source = carImage2;}
-	else if (myCar.id == 3)						{myCar.source = carImage3;}
-	else if (myCar.id == 4)						{myCar.source = carImage4;}
-	//CHANGE THE OTHER CARS' COLORS
-	for (var i = 0; i < opCar.length; i++)
-	{
-		if (opCar[i].id == 1 || opCar[i].id == 5)		{opCar[i].source = carImage1;}
-		else if (opCar[i].id == 2 || opCar[i].id == 6)	{opCar[i].source = carImage2;}
-		else if (opCar[i].id == 3)						{opCar[i].source = carImage3;}
-		else if (opCar[i].id == 4)						{opCar[i].source = carImage4;}
-	}
-	
-	init();
-}
-
-function startGame()
-{
-	//DRAW THE BACKGROUND GRASS AND TRACK
-	drawBG();
+	//GET NUMBER OF TRACKS
+	//dTrack.maxLaps = myTrack.laps;
 	
 	//INIT CAR IMAGES
 	var carImage1 = new Image();
@@ -256,13 +219,6 @@ function startGame()
 		else if (opCar[i].id == 4)						{opCar[i].source = carImage4;}
 	}
 	
-	getNewPosition();
-	intro = setInterval(onTimer,1000);
-}
-
-//PAGE'S ONLOAD FUNCTION (DOES NOTHING RIGHT NOW)
-function init()
-{
 	getNewPosition();
 	intro = setInterval(onTimer,1000);
 }
