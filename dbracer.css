@@ -126,15 +126,16 @@ div {
 }
 
 #wrapper {
+  height: 500px;
   background: rgba(96, 96, 96, 1);
   display: none;
 }
 
 canvas
 {
-	position: relative;
-	top: 0px;
-	left: 0px;
+	position: absolute;
+	top: inherit;
+	left: inherit;
 	background: transparent;
 	z-index:1;
 }
