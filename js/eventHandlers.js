@@ -16,7 +16,7 @@ function connectionsHandler(data) {
       myCar.setStatus("READY");
       $("#preGame").hide();
       $("#wrapper").show();
-      
+      checkForReady();
       //checkForStart();
       //waitForOther();
     });
@@ -38,6 +38,7 @@ function connectionsHandler(data) {
     $(id).text("Player " + data.id + " ready");
     ready++;    
       
+    checkForReady();
   }
     
   if (data.message == "CLOSED_CONNECTION") {
@@ -70,5 +71,10 @@ function dbCallback (data) {
 function trackHandler(data) {
   window.track = data;
   database.setTrack(data.id, data.width, data.height, data.track, data.grass, data.barrier, data.startX, data.startY);
+}
+
+function checkForReady() {
+  if (connected == ready)
+    //startGame();
 }
 
