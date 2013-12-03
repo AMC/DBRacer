@@ -75,7 +75,7 @@ function Database() {
   this.dropTables = function() {
     var query;
     
-    query = "DROP TABLE IF EXISTS track";
+    query = "DROP TABLE track";
     console.log("dropping table: " + query);
     
     this.connection.transaction(function(tx) {
@@ -84,7 +84,7 @@ function Database() {
       });
     });
     
-    query = "DROP TABLE IF EXISTS cars";
+    query = "DROP TABLE cars";
     console.log("dropping table: " + query);
     
     this.connection.transaction(function(tx) {
