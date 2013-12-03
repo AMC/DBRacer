@@ -1,14 +1,15 @@
-function Racecar() {
-  this.id     = Math.floor(Math.random()*999999);
+function Racecar(id) {
+  this.id     = myId;
   
   this.race		= 0;
   this.source	= "";
-  this.x		= 0;
-  this.y		= 0;
+  this.x		= 950;
+  this.y		= 325;
   this.speed	= 0;
   this.angle	= 180;
   this.lap		= 0;
   this.name		= "";
+  this.status = 'waiting';
   
   var TO_RADIANS = Math.PI/180;
   
@@ -40,6 +41,10 @@ function Racecar() {
   this.setPosition = function(x, y, angle, lap) {
     this.updatePosition(x, y, angle, lap);
     database.setPosition(this.race, this.id, x, y, angle, lap);
+  }
+  
+  this.setStatus = function(status) {
+    this.status = status;
   }
   
   // draws the car

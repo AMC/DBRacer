@@ -59,7 +59,31 @@
       <button id='btnReady'>Ready?</button>  
     </div>
     
-    <div id='game'>
+    <div id="wrapper">
+      <div id="lapDiv">
+        <label id="myLapText">Laps: </label>
+        <label id="myLaps">0</label>
+
+      </div>
+        <div id="startText">
+          <label id="startLabel">5</label>
+        </div>
+        
+        <div id="youWin">
+          <h2>You win!</h2>
+        </div>
+        
+        <div id='youLose'>
+          <h2>You lose!</h2>
+        </div>
+
+        <!-- The canvas for the background and cars -->
+        <canvas id="canvasBackground" width="1000" height="600">
+        	Your browser does not support canvas.
+        </canvas>
+        <canvas id="carCanvas" width="1000" height="600">
+          Your browser does not support canvas.
+        </canvas>
     </div>
   </div>
   
@@ -68,6 +92,8 @@
   <script src="js/socket.js"></script>
   <script src="js/database.js"></script>
   <script src="js/racecar.js"></script>
+  <script src="js/track.js"></script>
+  <script src="js/main.js"></script>
   <script src="js/eventHandlers.js"></script>
 
   

@@ -7,14 +7,16 @@ function connectionsHandler(data) {
   
   if (data.message == "CONNECTED") {
     window.myId = data.id;
-    window.myRacecar = new Racecar(myId);
+    window.myCar = new Racecar(myId);
     database.getTrack(1);
     
     $(id).addClass("btnStatusCurrentPlayer");
     $("#btnReady").on('click', function() {
       socket.setStatus(myId, "READY")
+      myCar.setStatus("READY");
       $("#preGame").hide();
-      $("#game").show();
+      $("#wrapper").show();
+      waitForOther();
     });
     
     $(id).addClass("btnStatusConnected");
@@ -24,14 +26,24 @@ function connectionsHandler(data) {
   if (data.message == "NEW_CONNECTION") {
     $(id).addClass("btnStatusConnected");
     $(id).text("Player " + data.id + " connected");
+    var tCar = new Racecar(data.id);
+    opCar.push(tCar);
   }
       
   if (data.message == "READY") {
     $(id).addClass("btnStatusReady");
     $(id).text("Player " + data.id + " ready");
     
-    // TODO: when all connected players are ready, start countdown
 
+    if (data.id != myCar.id) {
+      for (var i = 0; i < opCar.length; i++)
+        if (opCar[i].id == data.id)
+          opCar[i].status = "READY";
+    }
+    
+
+
+      
   }
     
   if (data.message == "CLOSED_CONNECTION") {

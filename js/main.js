@@ -5,7 +5,7 @@ var track = new Image();
 track.src = "assets/trackTiles.png";
 
 //DECLARE REFERENCE TO BACKGROUND CANVAS
-var c = document.getElementById("background");
+var c = document.getElementById("canvasBackground");
 var c_context = c.getContext("2d");
 
 //DECLARE REFERENCE TO CAR CANVAS
@@ -13,8 +13,8 @@ var ccar = document.getElementById("carCanvas");
 var ccar_context = ccar.getContext("2d");
 
 //DECLARE CAR GLOBAL VARS
-var myCar = new Racecar();
-var opCar = new Array(1);
+//var myCar = new Racecar();
+var opCar = new Array();
 
 //TRACK INSTANCE: STORES MAP'S DIMENSIONS AND # TILES, AND SPEED LIMITS
 var t = new Track();
@@ -193,75 +193,51 @@ function waitForOther()
 	carImage4.src = "assets/car4.png";
 	
 	//GET SELECTED CAR IMAGE AND SET THE CAR TO THAT IMAGE
-	if (document.getElementById('colorGroup_0').checked) {
-		myCar.source = carImage1;
-	}
-	else if (document.getElementById('colorGroup_1').checked) {
-		myCar.source = carImage2;
-	}
-	else if (document.getElementById('colorGroup_2').checked) {
-		myCar.source = carImage3;
-	}
-	else if (document.getElementById('colorGroup_3').checked) {
-		myCar.source = carImage4;
-	}
+	myCar.source = carImage1;
+
 	
-	//SET PLAYERS' NAMES
-	document.getElementById("myLapText").innerHTML = document.getElementById('playerName').value + ": ";
-	document.getElementById("opLapText").innerHTML = "Opponent: ";
-	myCar.name = document.getElementById('playerName').value;
-	
-	//REMOVE THE FORM SCREEN FROM PAGE SO PLAYER CAN SEE TRACK
-	var element = document.getElementById("selectScreen");
-	element.parentNode.removeChild(element);
 	
 	//GET THE MAP ARRAYS FROM THE DATABASE TO DRAW THE GRASS, TRACK, AND BARRIERS
 	/*
-	var map = database.getMap();
-	trackArray = map.track();
-	grassArray = map.grass();
-	barrierArray = map.barriers();
+	trackArray = myTrack.track.split(,);  
+	grassArray = myTrack.grass.split(,);
+	barrierArray = myTrack.barriers.split(,);
 	*/
 	
 	//DRAW THE BACKGROUND GRASS AND TRACK
 	drawBG();
 	
-	//debug:
-	myCar.x=950;
-	myCar.y=325;
-	
 	
 	//SETS CAR POSITION BASED ON ORDER OF ARRIVAL. IF FIRST, THEN WAIT FOR OTHER
-	/*
-	database.setState("ready");
-	if (database.getState() == "countdown")
-	{
-		myCar.setPosition(950,325,0,0);
-	}
-	else
-	{
-		myCar.setPosition(925,325,0,0);
-		while (database.getState() != "countdown") {}
-	}
-	*/
+	
 	
 	//GET OTHER CAR(S)' INFO
 	//opCar.getPosition();
 	
-	//debug:
-	opCar[0] = new Racecar();
-	opCar[0].init(0,925,325,0);
-	opCar[0].source = carImage1;
-	
 	//database.setState("run");
 	
 	//DRAW THE CARS AND START THE TIMER
-	getNewPosition();
-	intro = setInterval(onTimer,1000);
+	
+	while (myCar.status != "READY");
+	
+	var ready; 
+	while (ready != opCar.length) {
+    ready = 0;
+    for (i = 0; i < opCar.length; i++)
+      if (opCar[i].status == "READY")
+        ready++;
+	}
+	
+	init();
 }
 
 //PAGE'S ONLOAD FUNCTION (DOES NOTHING RIGHT NOW)
-function init() {}
+function init() {
+
+  
+  getNewPosition();
+	intro = setInterval(onTimer,1000);
+}
 
 //FUNCTION COUNTS DOWN THE TIMER AND SETS THE INTERVAL TO getNewPosition
 function onTimer()

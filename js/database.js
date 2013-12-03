@@ -203,7 +203,7 @@ function Database() {
       tx.executeSql(query, [id], function(tx, results) {
         if (results.rows.length > 0) {
           console.log("loading track from database");
-          window.track = results.rows.item(0);
+          window.myTrack = results.rows.item(0);
         } else {
           console.log("loading track from server");
           database.refreshTrack(id);  
