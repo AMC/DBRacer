@@ -63,18 +63,17 @@
       <div id="lapDiv">
         <label id="myLapText">Laps: </label>
         <label id="myLaps">0</label>
-
       </div>
         <div id="startText">
           <label id="startLabel">5</label>
         </div>
         
         <div id="youWin">
-          <h2>You win!</h2>
+          <h2>You Win!</h2>
         </div>
         
         <div id='youLose'>
-          <h2>You lose!</h2>
+          <h2>You Lose!</h2>
         </div>
 
         <!-- The canvas for the background and cars -->

@@ -6,9 +6,8 @@ function Racecar(id) {
   this.x		= 950;
   this.y		= 325;
   this.speed	= 0;
-  this.angle	= 180;
+  this.angle	= 0;
   this.lap		= 0;
-  this.name		= "";
   this.status = 'waiting';
   
   var TO_RADIANS = Math.PI/180;

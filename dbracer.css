@@ -161,8 +161,26 @@ canvas
 
 #youWin {
   display: none;
+	position:relative;
+	top:10px;
+	text-align:center;
+	width:100%;
+	color:#FFF;
+	font-size:80px;
+	font-weight:bold;
+	z-index:2;
+	font-family:"Arial Black", Gadget, sans-serif;
 }
 
 #youLose {
   display: none;
+	position:relative;
+	top:10px;
+	text-align:center;
+	width:100%;
+	color:#FFF;
+	font-size:80px;
+	font-weight:bold;
+	z-index:2;
+	font-family:"Arial Black", Gadget, sans-serif;
 }
