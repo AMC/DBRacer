@@ -83,7 +83,7 @@ function Database() {
     var car;
     
     query = "SELECT carId, x, y, angle, lap FROM cars "
-          + "AND carId = ? "
+          + "WHERE carId = ? "
           + "AND timestamp = (SELECT MAX(timestamp) FROM cars "
           + "  WHERE carId = ?) ";
         
