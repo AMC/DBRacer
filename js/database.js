@@ -118,7 +118,6 @@ function Database() {
         
         if (carId == myId) {
           var data = {
-            timestamp : timestamp,
             carId     : carId,
             x         : x,
             y         : y,
