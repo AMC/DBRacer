@@ -22,6 +22,7 @@ function Database() {
     
     console.log("Database connected.");
     
+    this.dropTables();
     this.createTables();
       
   }
