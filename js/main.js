@@ -236,23 +236,19 @@ var mainloop;
 var isDone = 0;
 
 //FUNCTION COUNTS DOWN THE TIMER AND SETS THE INTERVAL TO getNewPosition
-function onTimer()
-{
+function onTimer() {
 	getNewPosition();
 	start--;
-	if (start > 0)
-	{
+	if (start > 0) {
 	  $("#startText").show();
 		document.getElementById("startLabel").innerHTML = start;
 	}
-	else if (start == 0)
-	{
+	else if (start == 0) {
 		document.getElementById("startLabel").innerHTML = "GO!";
 		//mainloop = setInterval(getNewPosition, 20);
 		mainloop = requestAnimationFrame(onUpdate);
 	}
-	else if (start == -2)
-	{
+	else if (start == -2) {
 		$("#startText").hide();
 		//document.getElementById("startLabel").innerHTML = "";
 		clearInterval(intro);
