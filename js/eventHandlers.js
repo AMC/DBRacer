@@ -69,10 +69,11 @@ function dbracerHandler(data) {
 function dbCallback (data) {
   console.log("racecar callback");
   console.log(data);
-  
+  /*
   for (var i = 0; i < opCar.length; i++)
     if (opCar[i].id == data.id)
       opCar[data.id].updatePosition(data.x, data.y, data.angle, data.lap);
+  */
 }
 
 
