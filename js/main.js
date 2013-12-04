@@ -95,7 +95,7 @@ function getNewPosition()
 	myCar.draw(ccar_context);
 	for (var i = 0; i < opCar.length; i++)
 	{
-		opCar[i].getPosition();
+		//opCar[i].getPosition();
 		opCar[i].draw(ccar_context);
 	}
 	
