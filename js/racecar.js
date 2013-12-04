@@ -39,7 +39,7 @@ function Racecar(id) {
     //this.updatePosition(x, y, angle, lap);
     //database.setPosition(this.id, x, y, angle, lap);
     var data = {
-      carId     : carId,
+      carId     : this.id,
       x         : x,
       y         : y,
       angle     : angle,
