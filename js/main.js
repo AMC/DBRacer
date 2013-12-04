@@ -105,7 +105,14 @@ function getNewPosition()
 	for (var i = 0; i < opCar.length; i++)
 	{
 		opCar[i].getPosition();
-		opCar[i].draw(ccar_context);
+		//opCar[i].draw(ccar_context);
+		var selector = "#Player" + opCar[i].id + "Info";
+		$(selector).text("x: " + opCar[i].x + " <br>y: " + opCar[i].y);
+		car_context.save();
+		car_context.translate(opCar[i].x, opCar[i].y);
+		car_context.rotate(opCar[i].angle * TO_RADIANS);
+		car_context.drawImage(opCar[i].source, -(opCar[i].source.width/2), -(opCar[i].source.height/2));
+		car_context.restore();
 		console.log("**************");
 		console.log(opCar[i]);
 	}
