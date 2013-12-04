@@ -142,6 +142,10 @@ canvas
 
 #startText {
   display: none;
+  position: absolute;
+  top: 200px;
+  width: 100%;
+  text-align: center;
   /*
 	position:relative;
 	top:10px;

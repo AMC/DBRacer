@@ -112,7 +112,6 @@
       for (i = 0; i < 100; i++)
         $("#background").append("DBRacer ");
         
-      $("#startText").dialog();
       
       window.connections = 0;
       window.ready = 0;
