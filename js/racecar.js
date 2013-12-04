@@ -22,7 +22,7 @@ function Racecar(id) {
   // pulls other opponent's current position from database
   // and notifies dbCallback()
   this.getPosition = function() {
-    database.getPosition(this.id, dbCallback);
+    //database.getPosition(this.id, dbCallback);
   }
   
   // updates the car from the callback
@@ -37,7 +37,16 @@ function Racecar(id) {
   // pushes current position to database
   this.setPosition = function(x, y, angle, lap) {
     //this.updatePosition(x, y, angle, lap);
-    database.setPosition(this.id, x, y, angle, lap);
+    //database.setPosition(this.id, x, y, angle, lap);
+    var data = {
+      carId     : carId,
+      x         : x,
+      y         : y,
+      angle     : angle,
+      lap       : lap,
+    }
+    
+    socket.send("GAME_STATUS", data);
   }
   
   this.setStatus = function(status) {
