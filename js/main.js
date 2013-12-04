@@ -273,7 +273,7 @@ function onTimer()
 
 function onUpdate() {
 	getNewPosition();
-	requestAnimationFrame(onUpdate);
+	mainloop = requestAnimationFrame(onUpdate);
 }
 
 //STORES THE KEY STATES PRESSED AND RELEASED IN ARRAYS
