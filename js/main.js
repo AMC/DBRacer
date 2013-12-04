@@ -57,8 +57,12 @@ function drawBG()
 	}
 }//end drawBG
 
+var isReady = 0;
+
 function getNewPosition()
 {
+	if (isReady == 1) {return;}
+	isReady = 1;
 	//MOVE CAR BASED ON CURRENT KEY DOWN STATES
 	if (keyState[65]) {myCar.moveLeft(dTrack);}
 	if (keyState[87]) {myCar.moveUp(dTrack);}
@@ -101,6 +105,7 @@ function getNewPosition()
 	
 	//CHECKS IF A PLAYER HAS WON. IF SO, THEN END GAME
 	checkEnd();
+	isReady = 0;
 } //end getNewPosition()
 
 //GET CURRENT AND PREVIOUS TILE LOCATIONS (TO CHECK FOR LAPPING)
