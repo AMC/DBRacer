@@ -167,7 +167,7 @@ function checkEnd()
 	{
 		//STOPS GAME LOOP
 		//clearInterval(mainloop);
-		cancelAnimationFrame(window.mainloop);
+		cancelAnimationFrame(mainloop);
 		
 		//STORES THE PLACES OF THE CARS TO SHOW IN RESULTS
 		if (isEnd == 1)
@@ -245,6 +245,8 @@ function startGame()
 	intro = setInterval(onTimer,1000);
 }
 
+var mainloop;
+
 //FUNCTION COUNTS DOWN THE TIMER AND SETS THE INTERVAL TO getNewPosition
 function onTimer()
 {
@@ -259,7 +261,7 @@ function onTimer()
 	{
 		document.getElementById("startLabel").innerHTML = "GO!";
 		//mainloop = setInterval(getNewPosition, 20);
-		window.mainloop = requestAnimationFrame(onUpdate);
+		mainloop = requestAnimationFrame(onUpdate);
 	}
 	else if (start == -2)
 	{
