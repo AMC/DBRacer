@@ -97,11 +97,14 @@ function getNewPosition()
 	ccar_context.clearRect(0,0,dTrack.width,dTrack.height);
 	myCar.setPosition(myCar.x,myCar.y,myCar.angle,myCar.lap);
 	myCar.draw(ccar_context);
+	/*
 	for (var i = 0; i < opCar.length; i++)
 	{
 		//opCar[i].getPosition();
 		opCar[i].draw(ccar_context);
 	}
+	*/
+	theirCar.draw(ccar_context);
 	
 	//CHECKS IF A PLAYER HAS WON. IF SO, THEN END GAME
 	//checkEnd();
@@ -151,10 +154,13 @@ function checkEnd()
 	//CHECK IF A PLAYER HAS FINISHED
 	var isEnd = 0;
 	if (myCar.lap >= dTrack.maxLaps) {isEnd = 1;}
+	/*
 	for (var i = 0; i < opCar.length; i++)
 	{
 		if (opCar[i].lap >= dTrack.maxLaps) {isEnd = 2;}
 	}
+	*/
+	if (theirCar.lap >= dTrack.maxLaps) {isEnd = 2;}
 	
 	//IF END, THEN STOP CAR MOVEMENTS AND SHOW RESULTS
 	if (isEnd > 0)
@@ -219,6 +225,7 @@ function startGame()
 	else if (myCar.id == 3)						{myCar.source = carImage3;}
 	else if (myCar.id == 4)						{myCar.source = carImage4;}
 	//CHANGE THE OTHER CARS' COLORS
+	/*
 	for (var i = 0; i < opCar.length; i++)
 	{
 		if (opCar[i].id == 1 || opCar[i].id == 5)		{opCar[i].source = carImage1;}
@@ -226,6 +233,11 @@ function startGame()
 		else if (opCar[i].id == 3)						{opCar[i].source = carImage3;}
 		else if (opCar[i].id == 4)						{opCar[i].source = carImage4;}
 	}
+	*/
+	if (theirCar.id == 1 || myCar.id == 5)			{theirCar.source = carImage1;}
+	else if (theirCar.id == 2 || myCar.id == 6)		{theirCar.source = carImage2;}
+	else if (theirCar.id == 3)						{theirCar.source = carImage3;}
+	else if (theirCar.id == 4)						{theirCar.source = carImage4;}
 	
 	getNewPosition();
 	intro = setInterval(onTimer,1000);

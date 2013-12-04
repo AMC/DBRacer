@@ -151,49 +151,42 @@ canvas
   font-family:"Arial Black", Gadget, sans-serif;
   color:#FFF;
   font-size:80px;
-  /*
-	position:relative;
-	top:10px;
-	text-align:center;
-	width:100%;
-	color:#FFF;
-	font-size:80px;
-	font-weight:bold;
-	z-index:2;
-	font-family:"Arial Black", Gadget, sans-serif;
-	*/
 }
 
 #lapDiv {
 	color: #FFF;
+	position: inherit;
 	font-size: 20px;
-	z-index: 2;
+	z-index: 10;
+	left:0px;
 	font-family: "Arial Black", Gadget, sans-serif;
 }
 
 #youWin {
-  display: none;
-	position:relative;
-	top:10px;
+	display: none;
+	position:absolute;
+	top: 180px;
+	left:0px;
+	width: 100%;
 	text-align:center;
-	width:100%;
 	color:#FFF;
 	font-size:80px;
 	font-weight:bold;
-	z-index:2;
+	z-index:10;
 	font-family:"Arial Black", Gadget, sans-serif;
 }
 
 #youLose {
-  display: none;
-	position:relative;
-	top:10px;
+	display: none;
+	position:absolute;
+	top: 180px;
+	left:0px;
+	width: 100%;
 	text-align:center;
-	width:100%;
 	color:#FFF;
 	font-size:80px;
 	font-weight:bold;
-	z-index:2;
+	z-index:10;
 	font-family:"Arial Black", Gadget, sans-serif;
 }
 
