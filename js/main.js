@@ -91,6 +91,8 @@ function getNewPosition()
 	
 	//DRAWS LOCATION OF PLAYER'S CAR, AND EVERY CAR IN OPCAR ARRAY
 	ccar_context.clearRect(0,0,dTrack.width,dTrack.height);
+	console.log("**************");
+	console.log(myCar);
 	myCar.setPosition(myCar.x,myCar.y,myCar.angle,myCar.lap);
 	myCar.draw(ccar_context);
 	for (var i = 0; i < opCar.length; i++)
