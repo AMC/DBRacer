@@ -46,6 +46,8 @@ function Socket(host, port, file) {
       data: data
     }
     
+    console.log("socket.send(" + channel + ", " + JSON.stringify(frame) + ")");
+    
     this.connection.send(JSON.stringify(frame));
   }
   
