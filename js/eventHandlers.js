@@ -1,7 +1,7 @@
 function connectionsHandler(data) {
   var id = "#btnStatus" + data.id;
   
-  console.log(data);
+  //console.log(data);
 
   $(id).removeClass("btnStatusConnected btnStatusReady btnStatusDropped");
   
@@ -18,8 +18,6 @@ function connectionsHandler(data) {
       $("#preGame").hide();
       $("#wrapper").show();
 
-      //checkForStart();
-      //waitForOther();
     });
     
     $(id).addClass("btnStatusConnected");
@@ -29,8 +27,7 @@ function connectionsHandler(data) {
   if (data.message == "NEW_CONNECTION") {
     $(id).addClass("btnStatusConnected");
     $(id).text("Player " + data.id + " connected");
-    var tCar = new Racecar(data.id);
-    opCar.push(tCar);
+    window.theirCar = new Racecar(data.id);
     connections++;
   }
       
@@ -45,9 +42,9 @@ function connectionsHandler(data) {
   if (data.message == "CLOSED_CONNECTION") {
     $(id).addClass("btnStatusDropped");
     $(id).text("Player " + data.id + " dropped");
-    for (var i = 0; i < opCar.length; i++)
-      if (opCar[i].id == id && opCar[i].status == "READY")
-        ready--;
+    
+    theirCar = null;
+    ready--;
     connections--;
   }
 
@@ -56,19 +53,22 @@ function connectionsHandler(data) {
 
 function dbracerHandler(data) {
   //database.setPosition(data.carId, data.x, data.y, data.angle, data.lap);  
-  
+  theirCar.updatePosition(data.x, data.y, data.angle, data.lap);
+
+/*  
   for (var i = 0; i < opCar.length; i++)
     if (opCar[i].id == data.carId)  {
       opCar[i].updatePosition(data.x, data.y, data.angle, data.lap);
       
     }
+*/
 }
 
 
 // executes on completion of sql query
 function dbCallback (data) {
-  console.log("racecar callback");
-  console.log(data);
+  //console.log("racecar callback");
+  //console.log(data);
   /*
   for (var i = 0; i < opCar.length; i++)
     if (opCar[i].id == data.id)
@@ -84,9 +84,8 @@ function trackHandler(data) {
 
 function checkForReady() {
   if (connections == ready) {
-    console.log("start!");
+    //console.log("start!");
       startGame();
   }
     
 }
-

@@ -16,11 +16,11 @@ function Database() {
     this.connection = openDatabase(name, version, description, 2*1024*1024);
     
     if (!this.connection) {
-      console.log("A database error occured.");
+      //console.log("A database error occured.");
       return false;
     }
     
-    console.log("Database connected.");
+    //console.log("Database connected.");
     
     this.createTables();      
   }
@@ -39,14 +39,14 @@ function Database() {
            + "  startY  INTEGER "
            + ")";
     
-    console.log("creating table: " + query);
+    //console.log("creating table: " + query);
     
     this.connection.transaction(function(tx) {
       tx.executeSql(query, [], function(tx, results){
-        console.log("table created.");
+        //console.log("table created.");
       }, function (tx, err) {
-        console.log("query failed.");
-        console.log(err);
+        //console.log("query failed.");
+        //console.log(err);
       });
     });
     
@@ -59,14 +59,14 @@ function Database() {
            + "  lap       INTEGER "
            + ")";
     
-    console.log("creating table: " + query2);
+    //console.log("creating table: " + query2);
     
     this.connection.transaction(function(tx) {
       tx.executeSql(query2, [], function(tx, results){
-        console.log("table created.");
+        //console.log("table created.");
       }, function (tx, err) {
-        console.log("query failed.");
-        console.log(err);
+        //console.log("query failed.");
+        //console.log(err);
       });
     });
     
@@ -87,13 +87,13 @@ function Database() {
           + "AND timestamp = (SELECT MAX(timestamp) FROM cars "
           + "  WHERE carId = ?) ";
         
-    console.log("executing query: " + query);  
+    //console.log("executing query: " + query);  
     this.connection.transaction(function(tx) {
       tx.executeSql(query, [carId, carId], function(tx, results) {
-        console.log("query ok");
+        //console.log("query ok");
         callBack(results.rows.item(0));
       }, function(tx, err) {
-        console.log(err);
+        //console.log(err);
       });
     });
        
@@ -111,10 +111,10 @@ function Database() {
           +   lap
           + ")";
     
-    console.log("setting position of car " + carId);
+    //console.log("setting position of car " + carId);
     this.connection.transaction(function(tx) {
       tx.executeSql(query, [], function(tx, results){
-        console.log("record inserted");
+        //console.log("record inserted");
         
         if (carId == myId) {
           var data = {
@@ -137,13 +137,13 @@ function Database() {
     
     query = "DELETE FROM cars ";
         
-    console.log("executing query: " + query);  
+    //console.log("executing query: " + query);  
     this.connection.transaction(function(tx) {
       tx.executeSql(query, [], function(tx, results) {
-        console.log("query ok");
+        //console.log("query ok");
         callBack(results.rows.item(0));
       }, function(tx, err) {
-        console.log(err);
+        //console.log(err);
       });
     });
        
@@ -156,12 +156,12 @@ function Database() {
     query = "DELETE FROM tracks "
           + "WHERE id = ? ";
     
-    console.log("executing query: " + query);  
+    //console.log("executing query: " + query);  
     this.connection.transaction(function(tx) {
       tx.executeSql(query, [id], function(tx, results) {
-        console.log("query ok");
+        //console.log("query ok");
       }, function(tx, err) {
-        console.log(err);
+        //console.log(err);
         
       });
     });     
@@ -173,12 +173,12 @@ function Database() {
     query = "INSERT INTO track (id, laps, width, height, track, grass, barrier, startX, startY) "
           + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-    console.log("executing query: " + query);  
+    //console.log("executing query: " + query);  
     this.connection.transaction(function(tx) {
       tx.executeSql(query, [id, laps, width, height, track, grass, barrier, startX, startY], function(tx, results) {
-        console.log("query ok");
+        //console.log("query ok");
       }, function(tx, err) {
-        console.log(err);
+        //console.log(err);
 
       });
     });
@@ -193,18 +193,18 @@ function Database() {
     query = "SELECT * FROM track " 
           + "WHERE id = ?";
           
-    console.log("executing query: " + query);  
+    //console.log("executing query: " + query);  
     this.connection.transaction(function(tx) {
       tx.executeSql(query, [id], function(tx, results) {
         if (results.rows.length > 0) {
-          console.log("loading track from database");
+          //console.log("loading track from database");
           window.myTrack = results.rows.item(0);
         } else {
-          console.log("loading track from server");
+          //console.log("loading track from server");
           database.refreshTrack(id);  
         }
       }, function(tx, err) {
-        console.log(err);
+        //console.log(err);
         
       });
     });
@@ -221,17 +221,17 @@ function Database() {
   }
   
   this.query = function(query) {
-    console.log("executing query: ");
-    console.log(query);
+    //console.log("executing query: ");
+    //console.log(query);
     this.connection.transaction(function(tx){
       tx.executeSql(query, [], function(tx, results) {
-        console.log("query ok");
+        //console.log("query ok");
         
         for (var i = 0; i < results.rows.length; i++)
-          console.log(results.rows.item(i));
+          //console.log(results.rows.item(i));
       }, function(tx, err){
-        console.log("query failed");
-        console.log(err);
+        //console.log("query failed");
+        //console.log(err);
       });
     });
   }
