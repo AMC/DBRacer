@@ -1,5 +1,5 @@
 function Racecar(id) {
-  this.id     = myId;
+  this.id     = id;
   
   this.source	= "";
   this.x		= 725;
@@ -46,6 +46,8 @@ function Racecar(id) {
   
   // draws the car
   this.draw = function(car_context) {
+    var selector = "#Player" + this.id + "Status";
+    $(selector).text("x: " + this.x + " <br>y: " + this.y);
     car_context.save();
     car_context.translate(this.x, this.y);
     car_context.rotate(this.angle * TO_RADIANS);
