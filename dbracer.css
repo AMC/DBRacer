@@ -143,10 +143,14 @@ canvas
 #startText {
   display: none;
   position: absolute;
-  top: 200px;
+  top: 180px;
+  left:0px;
   width: 100%;
   text-align: center;
-  z-index: 100;
+  z-index: 10;
+  font-family:"Arial Black", Gadget, sans-serif;
+  color:#FFF;
+  font-size:80px;
   /*
 	position:relative;
 	top:10px;
