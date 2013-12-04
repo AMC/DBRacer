@@ -58,8 +58,11 @@ function dbracerHandler(data) {
   database.setPosition(data.id, data.x, data.y, data.angle, data.lap);
   
   for (var i = 0; i < opCar.length; i++)
-    if (opCar[i].id == data.id) 
+    if (opCar[i].id == data.id)  {
+      console.log("********** updating car: " + data.id + "at index: " + i + " x: " + data.x + "y: " data.y);
       opCar[i].updatePosition(data.x, data.y, data.angle, data.lap);
+      
+    }
 }
 
 
