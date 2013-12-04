@@ -172,11 +172,13 @@ function checkEnd()
 		//STORES THE PLACES OF THE CARS TO SHOW IN RESULTS
 		if (isEnd == 1)
 		{
-			document.getElementById("youWin").style.display = inline;
+	 		$("#youWin").show();
+			//document.getElementById("youWin").style.display = inline;
 		}
 		else
 		{
-			document.getElementById("youLose").style.display = inline;
+	 		$("#youLose").show();
+			//document.getElementById("youLose").style.display = inline;
 		}
 	}
 } //end checkEnd()
