@@ -186,20 +186,6 @@ function checkEnd()
 
 function startGame()
 {
-	/**########GET RID OF BUSY WAIT HERE WHEN CONFIRM METHOD WORKS#########**/
-	/*
-	//BUSY WAIT UNTIL ALL CARS ARE READY
-	while (myCar.status != "READY");
-	
-	var ready; 
-	while (ready != opCar.length) {
-    ready = 0;
-    for (i = 0; i < opCar.length; i++)
-      if (opCar[i].status == "READY")
-        ready++;
-	}
-	*/
-	
 	//GET THE MAP ARRAYS FROM THE DATABASE TO DRAW THE GRASS, TRACK, AND BARRIERS
 	/*
 	trackArray = myTrack.track.split(",");  
