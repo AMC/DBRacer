@@ -167,7 +167,7 @@ function checkEnd()
 	{
 		//STOPS GAME LOOP
 		//clearInterval(mainloop);
-		cancelAnimationFrame(mainloop);
+		window.cancelAnimationFrame(mainloop);
 		
 		//STORES THE PLACES OF THE CARS TO SHOW IN RESULTS
 		if (isEnd == 1)
@@ -259,7 +259,7 @@ function onTimer()
 	{
 		document.getElementById("startLabel").innerHTML = "GO!";
 		//mainloop = setInterval(getNewPosition, 20);
-		mainloop = requestAnimationFrame(onUpdate);
+		window.mainloop = requestAnimationFrame(onUpdate);
 	}
 	else if (start == -2)
 	{
