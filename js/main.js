@@ -232,6 +232,7 @@ function onTimer()
 	start--;
 	if (start > 0)
 	{
+	  $("#startLabel").show();
 		document.getElementById("startLabel").innerHTML = start;
 	}
 	else if (start == 0)
@@ -241,7 +242,8 @@ function onTimer()
 	}
 	else if (start == -2)
 	{
-		document.getElementById("startLabel").innerHTML = "";
+		$("#startLabel").hide();
+		//document.getElementById("startLabel").innerHTML = "";
 		clearInterval(intro);
 	}
 }

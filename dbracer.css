@@ -141,6 +141,8 @@ canvas
 }
 
 #startText {
+  display: none;
+  /*
 	position:relative;
 	top:10px;
 	text-align:center;
@@ -150,6 +152,7 @@ canvas
 	font-weight:bold;
 	z-index:2;
 	font-family:"Arial Black", Gadget, sans-serif;
+	*/
 }
 
 #lapDiv {
@@ -184,3 +187,4 @@ canvas
 	z-index:2;
 	font-family:"Arial Black", Gadget, sans-serif;
 }
+
