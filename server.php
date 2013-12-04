@@ -130,11 +130,12 @@
     foreach ($socketsToRead as $readSocket) {
       $index = array_search($readSocket, $clients);
       
-      echo "receiving data...\n";
+      echo "receiving data from $index...\n";
       
       while(socket_recv($readSocket, $frameIn, 1024, 0) >= 1) {
 
         $temp = json_decode(unmask($frameIn));
+        print_r($temp);
         
         if ($temp->channel == "TRACK_DATA") {
           echo "TRACK_DATA requested\n";
