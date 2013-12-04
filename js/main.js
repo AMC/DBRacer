@@ -57,17 +57,8 @@ function drawBG()
 	}
 }//end drawBG
 
-var loop = 50;
-
 function getNewPosition()
 {
-	loop--;
-	if (loop == 0)
-	{
-		clearInterval(mainloop);
-	}
-	
-	
 	//MOVE CAR BASED ON CURRENT KEY DOWN STATES
 	if (keyState[65]) {myCar.moveLeft(dTrack);}
 	if (keyState[87]) {myCar.moveUp(dTrack);}
