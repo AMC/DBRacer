@@ -64,9 +64,7 @@
         <label id="myLapText">Laps: </label>
         <label id="myLaps">0</label>
       </div>
-        <div id="startText">
-          <label id="startLabel">5</label>
-        </div>
+
 
         <!-- The canvas for the background and cars -->
         <canvas id="canvasBackground" width="1000" height="600">
@@ -91,6 +89,10 @@
     
     <div id='Player2Info'>
     </div>
+    
+    <div id="startText">
+      <label id="startLabel">5</label>
+    </div>
   </div>
   
 
@@ -110,6 +112,8 @@
       for (i = 0; i < 100; i++)
         $("#background").append("DBRacer ");
         
+      $("#startText").dialog();
+      
       window.connections = 0;
       window.ready = 0;
       
