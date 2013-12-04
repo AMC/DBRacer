@@ -246,8 +246,10 @@ function Database() {
           
     this.query(query);
     
-    for (var = i; i < barrierArray.length; i++)
+    for (var i = 0; i < barrierArray.length; i++) {
       barrierArray[i] = 0;
+    }
+    
   }
 
   
