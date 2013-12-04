@@ -155,7 +155,8 @@ function checkEnd()
 	if (isEnd > 0)
 	{
 		//STOPS GAME LOOP
-		clearInterval(mainloop);
+		//clearInterval(mainloop);
+		cancelAnimationFrame(mainloop);
 		
 		//STORES THE PLACES OF THE CARS TO SHOW IN RESULTS
 		if (isEnd == 1)
@@ -238,7 +239,8 @@ function onTimer()
 	else if (start == 0)
 	{
 		document.getElementById("startLabel").innerHTML = "GO!";
-		mainloop = setInterval(getNewPosition, 20);
+		//mainloop = setInterval(getNewPosition, 20);
+		mainloop = requestAnimationFrame(onUpdate);
 	}
 	else if (start == -2)
 	{
@@ -246,6 +248,11 @@ function onTimer()
 		//document.getElementById("startLabel").innerHTML = "";
 		clearInterval(intro);
 	}
+}
+
+function onUpdate() {
+	getNewPosition();
+	requestAnimationFrame(onUpdate);
 }
 
 //STORES THE KEY STATES PRESSED AND RELEASED IN ARRAYS
