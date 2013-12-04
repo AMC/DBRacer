@@ -57,8 +57,17 @@ function drawBG()
 	}
 }//end drawBG
 
+var loop = 50;
+
 function getNewPosition()
 {
+	loop--;
+	if (loop == 0)
+	{
+		clearInterval(mainloop);
+	}
+	
+	
 	//MOVE CAR BASED ON CURRENT KEY DOWN STATES
 	if (keyState[65]) {myCar.moveLeft(dTrack);}
 	if (keyState[87]) {myCar.moveUp(dTrack);}
@@ -91,14 +100,14 @@ function getNewPosition()
 	
 	//DRAWS LOCATION OF PLAYER'S CAR, AND EVERY CAR IN OPCAR ARRAY
 	ccar_context.clearRect(0,0,dTrack.width,dTrack.height);
-	console.log("**************");
-	console.log(myCar);
 	myCar.setPosition(myCar.x,myCar.y,myCar.angle,myCar.lap);
 	myCar.draw(ccar_context);
 	for (var i = 0; i < opCar.length; i++)
 	{
 		opCar[i].getPosition();
 		opCar[i].draw(ccar_context);
+		console.log("**************");
+		console.log(opCar[i]);
 	}
 	
 	//CHECKS IF A PLAYER HAS WON. IF SO, THEN END GAME
@@ -239,7 +248,7 @@ function onTimer()
 	else if (start == 0)
 	{
 		document.getElementById("startLabel").innerHTML = "GO!";
-		mainloop = setInterval(getNewPosition, 1000);
+		mainloop = setInterval(getNewPosition, 200);
 	}
 	else if (start == -2)
 	{
