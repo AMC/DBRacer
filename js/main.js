@@ -167,7 +167,7 @@ function checkEnd()
 	{
 		//STOPS GAME LOOP
 		//clearInterval(mainloop);
-		window.cancelAnimationFrame(mainloop);
+		cancelAnimationFrame(window.mainloop);
 		
 		//STORES THE PLACES OF THE CARS TO SHOW IN RESULTS
 		if (isEnd == 1)
