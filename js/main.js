@@ -107,8 +107,8 @@ function getNewPosition()
 	theirCar.draw(ccar_context);
 	
 	//CHECKS IF A PLAYER HAS WON. IF SO, THEN END GAME
-	checkEnd();
-	isReady = 0;
+	//checkEnd();
+	//isReady = 0;
 } //end getNewPosition()
 
 //GET CURRENT AND PREVIOUS TILE LOCATIONS (TO CHECK FOR LAPPING)
@@ -274,6 +274,8 @@ function onTimer()
 function onUpdate() {
 	getNewPosition();
 	mainloop = requestAnimationFrame(onUpdate);
+	checkEnd();
+	isReady = 0;
 }
 
 //STORES THE KEY STATES PRESSED AND RELEASED IN ARRAYS
