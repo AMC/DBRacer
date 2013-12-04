@@ -96,16 +96,7 @@ function getNewPosition()
 	for (var i = 0; i < opCar.length; i++)
 	{
 		opCar[i].getPosition();
-		//opCar[i].draw(ccar_context);
-		var selector = "#Player" + opCar[i].id + "Info";
-		$(selector).text("x: " + opCar[i].x + " <br>y: " + opCar[i].y);
-		ccar_context.save();
-		ccar_context.translate(opCar[i].x, opCar[i].y);
-		ccar_context.rotate(opCar[i].angle * TO_RADIANS);
-		ccar_context.drawImage(opCar[i].source, -(opCar[i].source.width/2), -(opCar[i].source.height/2));
-		ccar_context.restore();
-		console.log("**************");
-		console.log(opCar[i]);
+		opCar[i].draw(ccar_context);
 	}
 	
 	//CHECKS IF A PLAYER HAS WON. IF SO, THEN END GAME
