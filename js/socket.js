@@ -11,20 +11,20 @@ function Socket(host, port, file) {
     this.connection = new WebSocket(this.uri);
     
     this.connection.onopen = function(event) {
-      console.log("Socket connected.");
+      //console.log("Socket connected.");
     }
     
     this.connection.onclose = function(event) {
-      console.log("Connection closed.");
+      //console.log("Connection closed.");
     }
     
     this.connection.onerror = function(error) {
-      console.log("A socket error occurred.");
+      //console.log("A socket error occurred.");
     }
      
     this.connection.onmessage = function(messageEvent) {
       var frame = JSON.parse(messageEvent.data);
-      console.log("receieved frame:\n" + JSON.stringify(frame));
+      //console.log("receieved frame:\n" + JSON.stringify(frame));
       
       if (frame.channel == "CONNECTION_STATUS")
         connectionsHandler(frame.data);
@@ -46,7 +46,7 @@ function Socket(host, port, file) {
       data: data
     }
     
-    console.log("socket.send(" + channel + ", " + JSON.stringify(frame) + ")");
+    //console.log("socket.send(" + channel + ", " + JSON.stringify(frame) + ")");
     
     this.connection.send(JSON.stringify(frame));
   }
