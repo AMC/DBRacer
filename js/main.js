@@ -70,7 +70,7 @@ function getNewPosition()
 	if (keyState[83]) {myCar.moveDown(dTrack);}
 	
 	//CHECKS OBSTACLES (GRASS AND BARRIERS)
-	//checkObstacles();
+	checkObstacles();
 	
 	//UPDATE CAR'S POSITION BASED ON SPEED AND ANGLE
 	myCar.getSpeed();
@@ -107,7 +107,7 @@ function getNewPosition()
 	theirCar.draw(ccar_context);
 	
 	//CHECKS IF A PLAYER HAS WON. IF SO, THEN END GAME
-	//checkEnd();
+	checkEnd();
 	isReady = 0;
 } //end getNewPosition()
 
