@@ -55,11 +55,12 @@ function connectionsHandler(data) {
 
 
 function dbracerHandler(data) {
-  database.setPosition(data.id, data.x, data.y, data.angle, data.lap);
+  database.setPosition(data.carId, data.x, data.y, data.angle, data.lap);
+  console.log("********** updating car: " + data.carId + "at index: " + i + " x: " + data.x + "y: " + data.y);
+  
   
   for (var i = 0; i < opCar.length; i++)
-    if (opCar[i].id == data.id)  {
-      console.log("********** updating car: " + data.id + "at index: " + i + " x: " + data.x + "y: " + data.y);
+    if (opCar[i].id == data.carId)  {
       opCar[i].updatePosition(data.x, data.y, data.angle, data.lap);
       
     }
