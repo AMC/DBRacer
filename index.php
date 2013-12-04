@@ -84,13 +84,13 @@
           <h2>You Lose!</h2>
         </div>
         
-        <div id='Player1Info'>
-        </div>
         
-        <div id='Player2Info'>
-        </div>
+    </div>
+    <div id='Player1Info'>
     </div>
     
+    <div id='Player2Info'>
+    </div>
   </div>
   
 
