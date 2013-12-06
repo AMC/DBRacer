@@ -14,8 +14,7 @@
 <body>
   <div id='background'>
   </div>
-  
-  Hi David
+
   <div id='players' class='container'>
     <ul>
       <li>

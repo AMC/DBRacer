@@ -1,7 +1,7 @@
 <?php
 
   echo "checking for running processes\n";
-  $pid = `lsof -t -i:4444`;
+  $pid = `lsof -t -i:443`;
 
   echo "attempting to kill: $pid\n";
   `kill -9 $pid`;
