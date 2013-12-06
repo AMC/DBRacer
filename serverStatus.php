@@ -3,7 +3,7 @@
 
   echo "checking for running processes...\n";
   echo "<br />";
-  $pid = `lsof -t -i:$port`;
+  $pid = `sudo lsof -t -i:$port`;
   echo "process: $pid";
 
 
