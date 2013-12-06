@@ -4,4 +4,4 @@
   $host = 'dbracer.thepog.net';
   
   //$port = '4444';
-  $port = '443';
+  $port = '3306';
